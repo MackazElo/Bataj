@@ -1,0 +1,551 @@
+<!doctype html>
+<style>
+    body{
+        background: linear-gradient(rgb(210, 200, 203), rgb(10, 239, 249)); 
+    }
+    #master{
+        height: 100%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 10% 5% 30% 60%;
+        grid-template-areas: 
+            "forms forms"
+            "button button"
+            "yt loc"
+            "tabl tabl"
+    }
+    #forms{
+        grid-area: forms;
+        padding-left: 25%;
+    }
+    #yt{
+        grid-area: yt;
+    }
+    #loc{
+        grid-area: loc;
+    }
+    #table{
+        grid-area: tabl;
+    }
+    #button{
+        grid-area: button;
+    }
+    div{
+        text-align: center;
+        
+    }
+    input{
+        width: 100%;
+    }
+    
+</style>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <link href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+
+        <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
+
+        <title>BATAJ</title>
+    </head>
+    <body >
+        <div id="message">
+            <input id="iteration" value="0" hidden>
+        </div>
+        <div id="master" >
+            
+                <div id="forms" >
+                    <form method="post" id="form_new" >
+                        <table  >
+                            <tr>
+                                <th hidden>ID</th>   
+                                <th>Numer naprawy</th>                                           
+                                <th>Kondycja</th>                                           
+                                <th>Cykl</th>                                                                    
+                                <th >Komentarz</th>                                     
+                                <th hidden>Start</th>
+                                <th hidden>Last</th>                                            
+                            <tr>
+                                <td>
+                                    <input name="Repair" value="" placeholder="Numer naprawy" >    
+                                </td>
+                                <td>
+                                    <input name="Health" type="number" value="100">
+                                </td>
+                                <td>
+                                    <input name="Cycle"  type="number" value="0">   
+                                </td>
+                                <td>
+                                    <select onchange="move_Select()" id="Comment_select">
+                                        <option value="Cykl kalibracyjny">Cykl kalibracyjny</option>
+                                        <option value="Test stabilności">Test stabilności</option>
+                                        <option value="">Inne</option>
+                                    </select>
+                                    <br>
+                                    <input name="Comment" id="Comment_input" >      
+                                </td>
+                                <td>
+                                    <input name="Start" value="" hidden>   
+                                </td>
+                                <td>
+                                    <input name="Last" value="" hidden>        
+                                </td>
+                              
+                                <td>
+                                    <input name="action" value="Start" hidden> 
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="submit" id="submit_new" value="new" hidden >
+                                                                
+                                 
+                    </form>
+                    <form method="post" id="form_update" hidden >                        
+                        <input id="current_id" name="id" value="0">
+                        <input name="action" value="Now" hidden>  
+                        <input type="submit" id="submit_update" value="update">
+                    </form>  
+                    <input type="button" id='refresh' value="refresh" hidden>
+                    
+                         <input id="run"  value="0" hidden>
+                        
+                    
+                    
+                </div>
+                <div id="button">
+                    <input type="button" value="Uruchom test" id="start_button" onclick="runner()">
+                </div>
+                
+               
+               <br>
+                <div  id="yt">
+                    <h5>Youtube Video</h5>
+                    <iframe width="500px" height="300px" src="https://www.youtube.com/embed/a6GGZ68mOZA" title="seels 10 hours" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div  id="loc">
+                    <h5>Local Video</h5>
+                    <iframe width="600px" height="350px"  src="http://192.168.2.222/node/bataj/views/index2.html" title="Local Video" allowfullscreen></iframe>
+                </div>
+        
+            <div id="table">
+                <h1 class="mt-4 mb-4 text-center text-primary"><b>Batmark V2</b></h1>
+
+                <span id="message"></span>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col col-sm-3">
+                                <button type="button" id="add_data" class="btn btn-success btn-sm float-end" hidden>Add</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" id="sample_data">
+                                <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Repair</th>
+                                        <th>Health</th>
+                                        <th>Cycle</th>
+                                        <th>Start</th>
+                                        <th>Last</th>
+                                        <th>Comment</th>                        
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </body>
+
+
+
+
+
+        <div class="modal" tabindex="-1" id="action_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="sample_form">
+                <div class="modal-header" id="dynamic_modal_title">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">id</label>
+                        <input type="text" name="id" id="id" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Repair</label>
+                        <input type="text" name="Repair" id="Repair" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Health</label>
+                        <input type="text" name="Health" id="Health" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Cycle</label>
+                        <input type="text" name="Cycle" id="Cycle" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Start</label>
+                        <input type="text" name="Start" id="Start" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Last</label>
+                        <input type="text" name="Last" id="Last" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Comment</label>
+                        <input type="text" name="Comment" id="Comment" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" id="id" />
+                    <input type="hidden" name="action" id="action" value="Add" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="action_button">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+
+</script>
+<script>
+   function move_Select(){
+        var dropdown = document.getElementById("Comment_select")
+        var input = document.getElementById("Comment_input")
+        input.value = dropdown.value
+        if(input.value==""){
+       
+            input.style = "visibility:visible"
+        }
+        else{
+            
+            input.style = "visibility:hidden"
+        }
+    }
+    move_Select()
+    function runner(){
+        var mode = document.getElementById("run")
+        var but = document.getElementById("start_button")
+
+        if (mode.value == "1"){
+            mode.value = 0
+            but.style='background-color: red'
+            but.value='Test zakończony, kliknij aby uruchomić ponownie'
+        }
+        else if (mode.value == "0") {
+            mode.value = 1
+            but.style='background-color: lime'
+            but.value='Test trwa, kliknij aby zakońćzyć'
+            document.getElementById("submit_new").click()
+           
+            
+            timeout = setTimeout(update_id,3000);
+            timeout = setTimeout(send,3000);
+           
+        }
+    }
+
+   function update_id(){
+    //gets table
+var oTable = document.getElementById('sample_data');
+
+//gets rows of table
+var rowLength = oTable.rows.length;
+
+//loops through rows    
+
+
+  //gets cells of current row  
+   var oCells = oTable.rows.item(1).cells;
+
+   //gets amount of cells of current row
+   var cellLength = oCells.length;
+
+   //loops through each cell in current row
+      // get your cell info here
+
+      var cellVal = oCells.item(0).innerHTML;
+      document.getElementById("current_id").value = cellVal;
+   }
+
+       
+
+    function send(){
+       document.getElementById("submit_update").click()
+       var i = document.getElementById("iteration").value 
+       i++
+        document.getElementById("iteration").value = i
+       if(document.getElementById("run").value==1){
+       timeout = setTimeout(send,3000);
+    
+    
+       }
+     
+       
+    }
+
+    function autoload(){
+
+        document.getElementById('refresh').click()
+        timeout = setTimeout(autoload,3000);
+    }
+    
+    autoload()
+
+     
+function dif(strt, now) {
+strt = new Date(strt)
+now = new Date(now)
+var s = strt-now
+// Pad to 2 or 3 digits, default is 2
+function pad(n, z) {
+  z = z || 2;
+  return ('00' + n*-1).slice(-z);
+}
+
+var ms = s % 1000;
+s = (s - ms) / 1000;
+var secs = s % 60;
+s = (s - secs) / 60;
+var mins = s % 60;
+var hrs = (s - mins) / 60;
+
+alert(pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3));
+}
+    
+    </script>
+
+
+<script>
+
+    $(document).ready(function(){
+    
+        load_data();
+    
+        function load_data()
+        {
+            $.ajax({
+                url:"http://192.168.2.222:3000/action",
+                method:"POST",
+                data:{action:'fetch'},
+                dataType : "JSON",
+                success:function(data)
+                {
+                    var html = '';
+    
+                    if(data.data.length > 0)
+                    {
+                        for(var count = 0; count < data.data.length; count++)
+                        {
+                            html += `
+                            <tr>
+                                <td>`+data.data[count].id+`</td>
+                                <td>`+data.data[count].Repair+`</td>
+                                <td>`+data.data[count].Health+`</td>
+                                <td>`+data.data[count].Cycle+`</td>
+                                <td>`+data.data[count].Start+`</td>
+                                <td>`+data.data[count].Last+`</td>
+                                <td>`+data.data[count].Comment+`</td>
+                                <td><button type="button" onclick="dif('${data.data[count].Start}', '${data.data[count].Last}')">Oblicz czas</button>&nbsp;<button type="button" class="btn btn-warning btn-sm edit" data-id="`+data.data[count].id+`">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm delete" data-id="`+data.data[count].id+`">Delete</button></td>
+                            </tr>
+                            `;
+                        }
+                    }
+    
+                    $('#sample_data tbody').html(html);
+                }
+            });
+        }
+    
+        $('#add_data').click(function(){
+    
+            $('#dynamic_modal_title').text('Add Data');
+    
+            $('#sample_form')[0].reset();
+    
+            $('#action').val('Add');
+    
+            $('#action_button').text('Add');
+    
+            $('#action_modal').modal('show');
+    
+        });
+    
+        $('#sample_form').on('submit', function(event){
+    
+            event.preventDefault();
+    
+            $.ajax({
+                url:"http://192.168.2.222:3000/action",
+                method:"POST",
+                data:$('#sample_form').serialize(),
+                dataType:"JSON",
+                beforeSend:function(){
+                    $('#action_button').attr('disabled', 'disabled');
+                },
+                success:function(data)
+                {
+                    $('#action_button').attr('disabled', false);
+    
+                    $('#message').html('<div class="alert alert-success">'+data.message+'</div>');
+    
+                    $('#action_modal').modal('hide');
+                    
+                    load_data();
+                    alert(data);
+                    setTimeout(function(){
+                        $('#message').html('');
+                    }, 5000);
+                }
+            });
+    
+        });
+    
+        $(document).on('click', '.edit', function(){
+    
+            var id = $(this).data('id');
+    
+            $('#dynamic_modal_title').text('Edit Data');
+    
+            $('#action').val('Edit');
+    
+            $('#action_button').text('Edit');
+    
+            $('#action_modal').modal('show');
+    
+            $.ajax({
+                url:"http://192.168.2.222:3000/action",
+                method:"POST",
+                data:{id:id, action:'fetch_single'},
+                dataType:"JSON",
+                success:function(data)
+                {
+                    $('#id').val(data.id);
+                    $('#Repair').val(data.Repair);
+                    $('#Health').val(data.Health);
+                    $('#Cycle').val(data.Cycle);
+                    $('#Start').val(data.Start);
+                    $('#Last').val(data.Last);
+                    $('#Comment').val(data.Comment);
+                }
+            });
+    
+        });
+    
+        $(document).on('click', '.delete', function(){
+    
+            var id = $(this).data('id');
+    
+            if(confirm("Are you sure you want to delete this data?"))
+            {
+                $.ajax({           
+                    url:"http://192.168.2.222:3000/action",
+                    method:"POST",
+                    data:{action:'delete', id:id},
+                    dataType:"JSON",
+                    success:function(data)
+                    {
+                        $('#message').html('<div class="alert alert-success">'+data.message+'</div>');
+                        load_data();
+                        setTimeout(function(){
+                            $('#message').html('');
+                        }, 5000);
+                    }
+                });
+            }
+    
+        });
+
+        
+$('#form_new').submit(function(event){
+   
+        event.preventDefault()
+
+            $('#action').val('Start');
+
+            event.preventDefault();
+    
+            $.ajax({
+                url:"http://192.168.2.222:3000/action",
+                method:"POST",
+                data:$('#form_new').serialize(),
+                dataType:"JSON",
+              
+                success:function(data)
+                {
+                    load_data();
+                }
+            });
+    
+        });
+
+
+                
+$('#form_update').submit(function(event){
+   
+   event.preventDefault()
+
+       $('#action').val('Update');
+
+       event.preventDefault();
+
+       $.ajax({
+           url:"http://192.168.2.222:3000/action",
+           method:"POST",
+           data:$('#form_update').serialize(),
+           dataType:"JSON",
+         
+           success:function(data)
+           {
+           }
+       });
+       
+       load_data();
+       
+
+   });
+   $(document).on('click', '#refresh', function(){
+        load_data()
+    });
+     
+          
+            
+        
+
+
+
+
+
+    });
+    
+   
+
+    </script>
+
+

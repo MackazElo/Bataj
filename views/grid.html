@@ -1,0 +1,49 @@
+<html>
+    <style>
+        body{
+            background-color: aqua;
+        }
+        #master{
+            background-color: blueviolet;
+            display: grid;
+            grid-template-columns: 50vw 50vw;
+            grid-template-rows: 30vh 30vh 40vh;
+            grid-template-areas: 
+                "forms forms"
+                "yt loc"
+                "tabl tabl"
+        }
+        #forms{
+            background-color: blue;
+            grid-area: forms;
+        }
+        #yt{
+            background-color: rgb(255, 0, 0);
+            grid-area: yt;
+        }
+        #loc{
+            background-color: rgb(0, 255, 0);
+            grid-area: loc;
+        }
+        #table{
+            grid-area: tabl;
+            background-color: rgb(255, 166, 0);
+        }
+    </style>
+    <body>
+        <div id='master'>
+            <div id='forms'>
+                forms
+            </div>
+            <div id='yt'>
+                yt
+            </div>
+            <div id='loc'>
+                loc
+            </div>
+            <div id="table">
+                table
+            </div>
+        </div>
+    </body>
+</html>
