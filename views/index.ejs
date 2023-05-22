@@ -482,7 +482,7 @@ background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #00000045 100%);
                
 
                 <div class="benchmark-forms" >
-                    <h1>nie wiem jakiś nagłówek</h1>
+                    <h1>Batery benchmark v2.0</h1>
 
                     <form method="post" id="form_new" >
                         <span class="benchmark-forms-label">typ testu</span>
@@ -655,11 +655,27 @@ background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #00000045 100%);
 </script>
 <script>
    function move_Select(){
+    let coment_radio=document.getElementById("Comment_select")
+    let coment_input=document.getElementById("Comment_input")
+    if (coment_radio.value == "inne"){
+       
+        coment_input.value = "a"
+    }
+    else{
+       
+    }
         if(document.getElementById('radio-other').checked) {
             document.getElementById("Comment_input").classList.remove("hidden");
             document.getElementById("Comment_input").focus();
-        } else {
+            document.getElementById("Comment_input").value = "";
+        } 
+        else if (document.getElementById('radio-s').checked){
             document.getElementById("Comment_input").classList.add("hidden")
+            document.getElementById("Comment_input").value = "Stabolność"
+        }
+        else if (document.getElementById('radio-c').checked){
+            document.getElementById("Comment_input").classList.add("hidden")
+            document.getElementById("Comment_input").value = "Kalibracja"
         }
     }
     move_Select();
