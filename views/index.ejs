@@ -1,21 +1,447 @@
 <!doctype html>
 <style>
-    body{
-        background: linear-gradient(rgb(210, 200, 203), rgb(10, 239, 249)); 
+    :root{
+    --main-background: #fffdfd;
+    --secondary-background: #f8f8f8;
+    --hover-background: #a3a3a3;
+
+    --main-font: #15131c;
+    --disabled-font: #777777;
+    
+    --main-border: #15131c;
+    --secondary-border: #777777;
+
+
+    --main-blue: #3b18f7;
+    --main-green: #006e05;
+    --secondary-green: #1d4821;
+
     }
-    #master{
-        display: flex;
-        flex-wrap: wrap;
+
+
+
+    /* reset css */
+    ::-moz-selection { /* Code for Firefox */
+    /* color: red; */
+    background: rgb(202, 202, 202);
     }
-    #benchmark{
+
+    ::selection {
+    /* color: red; */
+    background: rgb(174, 174, 174);
+    }
+    body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+    margin:0;
+    padding:0;
+    }
+    html,body {
+        margin:0;
+        padding:0;
+        font-family: 'Roboto Mono', monospace;
+
+    }
+    table {
+        border-collapse:collapse;
+        border-spacing:0;
+    }
+    fieldset,img { 
+        border:0;
+    }
+    input{
+        border:1px solid #b0b0b0;
+        padding:3px 5px 4px;
+        color:#979797;
+        width:190px;
+    }
+    address,caption,cite,code,dfn,th,var {
+        font-style:normal;
+        font-weight:normal;
+    }
+    ol,ul {
+        list-style:none;
+    }
+    caption,th {
+        text-align:left;
+    }
+    h1,h2,h3,h4,h5,h6 {
+        font-size:100%;
+        font-weight:normal;
+    }
+    /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.hidden {
+        display: none;
+    }
+    /* end reset css */
+/* ------------------------ */
+
+
+    .content{
+        width: 100%;
+        /* top: 0; */
+
+        /* display: flex;
+        flex-wrap: wrap; */
+        background-color: var(--main-background);
+        /* width: 500px; */
+    }
+/* ------------------------ */
+    .benchmark{
+        /* text-align: center; */
+        /* float: left; */
+        /* background-color: var(--main-background); */
+        /* position: fixed; */
+        /* width: 50%; */
+        /* right: 0; */
+        padding-top: 30px;
+        /* z-index: 1; */
+        box-shadow: rgba(0, 0, 0, .1) 0px -10px 10px;
+        min-width: 440px;
+
+        /* padding: 20px; */
+    }
+    .local-player, .youtube-player {
+        width: 50%;
+        max-width: 400px;
+        position: fixed;
+        left: 10px;
+        bottom: 5px;
+        /* background-color: yellow; */
+    }
+    .youtube-player {
+        padding-left: 420px;
+    }
+    .local-player video {
+        width: 100%;
+        min-height: 220px;
+        /* margin-left: auto; */
+        /* margin-right: auto; */
+    }
+    .youtube-player iframe {
+        width:100%;
+        /* height: calc(100vw/1.77); */
+        aspect-ratio: 16 / 9;
+    }
+
+/* ------------------------ */
+
+
+
+
+    .table {
+        /* width: 60%;
+        overflow: auto; */
+        height: 100%;
+        top: 0;
+        right: 0;
+        /* width: 100%; */
+        background-color: #eeeeee;
+        table-layout: auto;
+        width: 100%;
+        font-size: 1em;
+        /* padding: 10px; */
+        
+    }
+    .table table {
+        table-layout: auto;
+        width: 100%;
+        /* padding: 10px; */
+        /* border-spacing: 30px; */
+
+    }
+  
+    .table-content th {
         text-align: center;
-        float: left;
+        padding: 8px;
+        /* padding-left: 30px; */
+        /* background-color: turquoise; */
+        font-weight: bold;
     }
-    #table{
-        width: 60%;
-        overflow: auto;
+    .table-content th:last-child {
+        padding-right: 10px;
     }
+    .calc-button {
+        width: 40px;
+        height: 40px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .table-content th:first-child {
+        padding-left: 12px;
+    }
+    .table-content thead tr th {
+        background-color: var(--main-border);
+        color: var(--main-background);
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        position: sticky;
+        top: 36px;
+    }
+    .table-content td {
+        /* padding-left: 10px; */
+    }
+    .table-content tr:nth-child(2n+1) {
+        background-color: var(--main-background);
+        
+    }
+    .table-content tr {
+        background-color: var(--secondary-background);
+        border-bottom: 1px solid var(--main-border);
+        /* margin: 20px; */
+        /* box-shadow: inset 21px 4px 39px -50px rgba(0, 0, 0, 1); */
+    }
+    .table-id {
+        /* background-color: white; */
+        text-align: center;
+        padding-left: 10px;
+    }
+    .table-repair, .table-health, .table-cycle {
+        text-align: center;
+    }
+
+    .navbar {
+        background-color: var(--main-border);
+        height: 38px;
+        width: 100%;
+        position: sticky;
+        top: 0;
+        z-index: 11;
+        
+    }
+    .navbar-list {
+        display: flex;
+    }
+    .navbar-list li {
+        /* border: 1px solid black; */
+        padding: 8px;
+        margin: 0 15px;
+        color: var(--main-background);
+        font-weight: bold;
+    }
+
+
+
+    .benchmark-forms {
+        background-color: var(--main-background);
+        color: var(--main-font);
+        border: 1px solid var(--main-border);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        /* padding-top: 300px; */
+        /* margin-top: 30px; */
+        margin-bottom: 30px;
+        padding: 15px 5px 22px;
+        max-width: 400px;
+        /* z-index: 1; */
+
+    }
+    .benchmark-forms form {
+        width: 380px;
+    }
+    .benchmark-forms input {
+        border: 1px solid var(--secondary-border);
+        background-color: var(--main-background);
+        border-radius: 6px;
+        padding: 8px;
+        margin: 0;
+        width: 100%;
+        font-size: 1em;
+        color: var(--main-font);
+        box-sizing: border-box;
+        font-family: 'Roboto Mono', monospace;
+        margin-bottom: 12px;
+        margin-top: 2px;
+        transition: .1s;
+    }
+    .benchmark-forms input:hover {
+        background-color: var(--secondary-background);
+        transition: .1s;
+        border-color: var(--main-border);
+
+    }
+    .benchmark-forms input:focus {
+        border: 1px solid var(--main-border);
+        border-radius: 6px;
+        outline: none;
+        transition: .1s;
+        background-color: var(--secondary-background);
+    }
+    #Comment_input {
+        font-size: 1em;
+        height: 100%;
+        padding: 8px;
+    }
+
+    .benchmark-forms input::placeholder {
+        color: #777777;
+    }
+    .benchmark-radios input[type="radio"] {
+        opacity: 0;
+        position: fixed;
+        width: 0;
+        user-select: none;
+    }
+    .benchmark-radios {
+        margin-top: 2px;
+        padding-bottom: 12px;
+        /* user-select: none; */
+    }
+    .benchmark-radios label {
+        user-select: none;
+        background-color: var(--main-background);
+        display: inline-block;
+        text-align:center;
+        padding: 8px 0;
+        font-size: 1em;
+        border: 1px solid var(--disabled-font);
+        border-radius: 6px;
+        color: var(--disabled-font);
+        transition: .1s;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    }
+    .benchmark-radios label:nth-child(4) {
+        margin: 0 2px;
+    }
+    .benchmark-radios input[type="radio"]:checked + label {
+        /* color: var(--main-font);
+        background-color: var(--secondary-background);
+        border-color: var(--main-border); */
+
+        color: var(--main-background);
+        background-color: var(--main-border);
+        border-color: var(--main-border);
+    }
+    .benchmark-radios input[type="radio"]:focus + label {
+
+    }
+    .benchmark-radios label:hover {
+        cursor: pointer;
+        color: var(--main-font);
+        border-color: var(--main-border);
+
+        background-color: var(--secondary-background);
+    }
+    .benchmark-radios {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+    }
+    .benchmark-forms-label {
+        /* padding-top: 20px; */
+        /* z-index: 100; */
+        /* padding-left: 4px; */
+    }
+  
    
+    #start_button {
+        /* border-radius: 0; */
+        box-sizing: border-box;
+        margin-top: 10px;
+        font-size: 1.1em;
+        color: var(--main-background);
+        border: 1px solid var(--main-border);
+        border-radius: 6px;
+        padding: 14px 18px;
+        background-color: var(--main-border);
+        width: 100%;
+        height: 52px;
+        max-width: 400px;
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    }
+    #start_button:hover {
+        background-color: var(--main-background);
+        color: var(--main-font);
+    }
+
+/* ------------------------ */
+    footer {
+        /* background-color: turquoise; */
+        height: 3em;
+        /* position: fixed;
+        bottom: 0;
+        width: 100%; */
+    }
+
+
+/* ------------------------ */
+
+
+   
+    @media only screen and (min-width: 992px) {
+        /* @media only screen and (min-width: 1064px) { */
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-column-gap: 0px;
+            grid-row-gap: 0px;
+            height: 90vh;
+        }
+        .benchmark {
+            /* background-color:yellowgreen; */
+        }
+        .table {
+            margin-top: -39px;
+            top: -10px;
+            z-index: 11;
+        }
+        .navbar {
+            /* width: 50%; */
+            
+
+        }
+        .table {
+            overflow: scroll;
+            height: calc(100% + 39px);
+            
+        }
+        .table-content tr {
+        /* background-color: var(--secondary-background);
+        border-bottom: 1px solid var(--main-border); */
+        /* margin: 20px; */
+        box-shadow: inset 21px 4px 39px -50px rgba(0, 0, 0, 1);
+    }
+        .table-content {
+            /* background: rgb(9,9,121);
+            background: linear-gradient(180deg, rgba(9,9,121,0) 79%, rgba(0,212,255,1) 100%); */
+        }
+
+        .table-content thead tr th {
+        
+        /* position: sticky;
+        top: 0px; */
+        top: 0;
+    }
+        .gradientBottom {
+            position: absolute;
+            bottom: 54px;
+            right: 0;
+            width: 50%;
+            height: 200px;
+            /* background-color: red; */
+            box-shadow: inset -4px -34px 39px -52px rgba(0, 0, 0, 1);
+
+            /* background: rgb(9,9,121);
+background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #00000045 100%); */
+        }
+    }
+
     
 </style>
 <html lang="en">
@@ -25,9 +451,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-        <link href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css" rel="stylesheet"> -->
 
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -35,111 +461,141 @@
         <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
 
         <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
-
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
         <title>BATAJ</title>
     </head>
     <body >
-        <div id="message">
-            <input id="iteration" value="0" hidden>
-        </div>
-        <div id="master" >
-                <div id="benchmark">
-                    <div id="forms" >
-                        <form method="post" id="form_new" >
-                                    <h6>Numer naprawy</h6>    
-                                    <input name="Repair" value="" placeholder="Numer naprawy" >                                           
-                                    <h6>Kondycja</h6>  
-                                    <input name="Health" type="number" value="100">                                         
-                                    <h6>Cykl</h6> 
-                                    <input name="Cycle"  type="number" value="0">                                                                     
-                                    <h6 >Komentarz</h6>                                             
-                  
-                                        <select onchange="move_Select()" id="Comment_select">
-                                            <option value="Cykl kalibracyjny">Cykl kalibracyjny</option>
-                                            <option value="Test stabilności">Test stabilności</option>
-                                            <option value="">Inne</option>
-                                        </select>
-                                        <br>
-                                        <input name="Comment" id="Comment_input" >      
-                                
-                                        <input name="Start" value="" hidden>   
-                                
-                                        <input name="Last" value="" hidden>        
-                                
-                                        <input name="action" value="Start" hidden> 
-                                    
-                                        <br><br>
-                                    
-                            <input type="submit" id="submit_new" value="new" hidden >
-                                                                    
-                                    
-                        </form>
-                        <form method="post" id="form_update" hidden >                        
-                            <input id="current_id" name="id" value="0">
-                            <input name="action" value="Now" hidden>  
-                            <input type="submit" id="submit_update" value="update">
-                        </form>  
-                        <input type="button" id='refresh' value="refresh" hidden>
-                        
-                            <input id="run"  value="0" hidden>
-                            
-                        
-                        
-                    </div>
-                    <div id="button">
-                        <input type="button" value="Uruchom test" id="start_button" onclick="runner()">
-                    </div>
-                    
-                
-                <br>
-                    <div  id="yt">
-                        <h5>Youtube Video</h5>
-                        <iframe width="500px" height="300px" src="https://www.youtube.com/embed/a6GGZ68mOZA" title="seels 10 hours" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    </div>
-                    <div  id="loc">
-                        <h5>Local Video</h5>
-                        <iframe width="600px" height="350px"  src="http://192.168.2.222/node/bataj/views/index2.html" title="Local Video" allowfullscreen></iframe>
-                    </div>
-            </div>
-            <div id="table">
-                <h1 class="mt-4 mb-4 text-center text-primary"><b>Batmark V2</b></h1>
+            <input id="iteration" value="0" hidden >
+        <nav class="navbar">
+            <ul class="navbar-list">
+                <li>home page</li>
+               
 
-                <span id="message"></span>
-                <div class="card">
-                    <div class="card-header">
+            </ul>
+        </nav>
+        <div class="content" >
+            
+            <div class="benchmark">
+
+               
+
+                <div class="benchmark-forms" >
+                    <h1>nie wiem jakiś nagłówek</h1>
+
+                    <form method="post" id="form_new" >
+                        <span class="benchmark-forms-label">typ testu</span>
+                        <!-- <select onchange="move_Select()" id="Comment_select">
+                            <option value="Cykl kalibracyjny">Cykl kalibracyjny</option>
+                            <option value="Test stabilności">Test stabilności</option>
+                            <option value="">Inne</option>
+                        </select> -->
+                        <div class="benchmark-radios" onchange="move_Select()" id="Comment_select">
+                            <!-- <div class="benchmark-radio"> -->
+                                <input type="radio" id="radio-c" name="fav_language" value="kalibracja" checked>
+
+                                <label tabindex="0" for="radio-c">kalibracja</label>
+                            <!-- </div>
+                            <div class="benchmark-radio"> -->
+                                <input type="radio" id="radio-s" name="fav_language" value="stabilność">
+
+                                <label tabindex="0" for="radio-s">stabilność</label>
+                            <!-- </div>
+
+                                <div class="benchmark-radio"> -->
+                                <input type="radio" id="radio-other" name="fav_language" value="inne" >
+
+                                <label tabindex="0" for="radio-other">inne</label>
+                            <!-- </div> -->
+                        </div>
+                        <input name="Comment" id="Comment_input" class="hidden" placeholder="wpisz typ testu">      
+
+                        <span class="benchmark-forms-label">numer naprawy</span>    
+                        <input name="Repair" value="" placeholder="np. 35423" >
+                        <span class="benchmark-forms-label">naładowanie baterii</span>
+                        <input class="charge" name="Charge"  type="number" min="0" max="100" value="100">                                        
+                        <span class="benchmark-forms-label">kondycja baterii</span> 
+                        <input class="health"name="Health" type="number" min="0" max="100" value="100">                                              
+                        <span class="benchmark-forms-label">który cykl</span> 
+                        <input class="cycle" name="Cycle"  type="number" min="0" value="0">                                                               
+                    
+
+
+                        <input name="Start" value="" hidden>   
+                        <input name="Last" value="" hidden>        
+                        <input name="action" value="Start" hidden> 
+                        <input type="submit" id="submit_new" value="new" hidden > 
+                        <input type="button" value="uruchom test" id="start_button" onclick="runner()">
+                                                          
+                    </form>
+                    <form method="post" id="form_update" hidden >                        
+                        <input id="current_id" name="id" value="0">
+                        <input name="action" value="Now" hidden>  
+                        <input type="submit" id="submit_update" value="update">
+                    </form>  
+                    <input type="button" id='refresh' value="refresh" hidden>
+                    <input id="run"  value="0" hidden>
+                    
+                    <!-- <input type="" value="Uruchom test" id="start_button" onclick="runner()"> -->
+
+                </div>
+
+                <!-- <div id="button">
+                    <input type="button" value="Uruchom test" id="start_button" onclick="runner()">
+                </div> -->
+
+                <div class="benchmark-video">
+                    <div class="youtube-player">
+                        <h1>Youtube Video</h1>
+                        <iframe src="https://www.youtube.com/embed/a6GGZ68mOZA" title="seels 10 hours" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div class="local-player">
+                        <h1>Local Video</h1>
+                        <video controls loop muted>
+                            <source src="seals.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+               
+            </div>
+
+            <div class="table">
+                <!-- <h1 class="mt-4 mb-4 text-center text-primary"><b>Batmark V2</b></h1> -->
+                <!-- <span id="message"></span> -->
+                <div class="table-content">
+                    <!-- <div class="card-header">
                         <div class="row">
                             <div class="col col-sm-3">
-                                <button type="button" id="add_data" class="btn btn-success btn-sm float-end" hidden>Add</button>
+                                <button type="button" id="add_data" class="btn btn-success btn-sm float-end">Add</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered" id="sample_data">
-                                <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Repair</th>
-                                        <th>Health</th>
-                                        <th>Cycle</th>
-                                        <th>Start</th>
-                                        <th>Last</th>
-                                        <th>Comment</th>                        
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
+                    </div> -->
+                    <table class="" id="sample_data">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>repair</th>
+                                <th>health</th>
+                                <th>cycle</th>
+                                <th>start</th>
+                                <th>last</th>
+                                <th>info</th>  
+                                <th></th>                      
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div class="gradientBottom"></div>
                 </div>
             </div>
         </div>
-        </body>
+    
 
 
+`
 
-
-
+<!-- 
         <div class="modal" tabindex="-1" id="action_modal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -184,11 +640,12 @@
                     <input type="hidden" name="action" id="action" value="Add" />
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" id="action_button">Add</button>
-                </div>
+                </div> -->
             </form>
         </div>
     </div>
 </div>
+
 
 
 
@@ -198,19 +655,15 @@
 </script>
 <script>
    function move_Select(){
-        var dropdown = document.getElementById("Comment_select")
-        var input = document.getElementById("Comment_input")
-        input.value = dropdown.value
-        if(input.value==""){
-       
-            input.style = "visibility:visible"
-        }
-        else{
-            
-            input.style = "visibility:hidden"
+        if(document.getElementById('radio-other').checked) {
+            document.getElementById("Comment_input").classList.remove("hidden");
+            document.getElementById("Comment_input").focus();
+        } else {
+            document.getElementById("Comment_input").classList.add("hidden")
         }
     }
-    move_Select()
+    move_Select();
+    
     function runner(){
         var mode = document.getElementById("run")
         var but = document.getElementById("start_button")
