@@ -22,13 +22,10 @@
 
     /* reset css */
     ::-moz-selection { /* Code for Firefox */
-    /* color: red; */
-    background: rgb(202, 202, 202);
+        background: rgb(202, 202, 202);
     }
-
     ::selection {
-    /* color: red; */
-    background: rgb(174, 174, 174);
+        background: rgb(174, 174, 174);
     }
     body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
     margin:0;
@@ -76,7 +73,7 @@ input::-webkit-inner-spin-button {
 
 /* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .hidden {
@@ -114,13 +111,19 @@ input[type=number] {
         width: 50%;
         max-width: 400px;
         /* position: fixed; */
-        left: 10px;
+        /* left: 10px; */
         bottom: 5px;
         /* background-color: yellow; */
     }
+    .youtube-player {
+        /* padding-left: 420px; */
+    }
+    .benchmark-video {
+        width: 50%;
+    }
     .local-player video {
         width: 100%;
-        min-height: 280px;
+        min-height: 220px;
         /* margin-left: auto; */
         /* margin-right: auto; */
     }
@@ -193,6 +196,7 @@ input[type=number] {
     .table-content tr {
         background-color: var(--secondary-background);
         border-bottom: 1px solid var(--main-border);
+        height: 50px;
         /* margin: 20px; */
         /* box-shadow: inset 21px 4px 39px -50px rgba(0, 0, 0, 1); */
     }
@@ -201,7 +205,7 @@ input[type=number] {
         text-align: center;
         padding-left: 10px;
     }
-    .table-repair, .table-health, .table-cycle {
+    .table-repair, .table-health, .table-cycle, .table-level {
         text-align: center;
     }
 
@@ -368,10 +372,8 @@ input[type=number] {
 
 /* ------------------------ */
     footer {
-        background-color: turquoise;
+        /* background-color: turquoise; */
         height: 3em;
-        /* bottom: 0; */
-
         /* position: fixed;
         bottom: 0;
         width: 100%; */
@@ -379,6 +381,15 @@ input[type=number] {
 
 
 /* ------------------------ */
+
+/* table */
+    .hidden_row {
+            display: none;
+        }
+    .active {
+        background-color: red !important;
+        /* border: 3px solid black; */
+    }
 
 
    
@@ -429,15 +440,12 @@ input[type=number] {
     }
         .gradientBottom {
             position: absolute;
-            bottom: 54px;
+            bottom: 0px;
             right: 0;
             width: 50%;
             height: 200px;
             /* background-color: red; */
-            box-shadow: inset -4px -34px 39px -52px rgba(0, 0, 0, 1);
-
-            /* background: rgb(9,9,121);
-background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #00000045 100%); */
+            /* box-shadow: inset -4px -34px 39px -52px rgba(0, 0, 0, 1); */
         }
     }
 
@@ -466,9 +474,7 @@ background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #00000045 100%);
         <title>BATAJ</title>
     </head>
     <body >
-        <!-- <div id="message">
-            <input id="iteration" value="0" >
-        </div> -->
+            <input id="iteration" value="0" hidden >
         <nav class="navbar">
             <ul class="navbar-list">
                 <li>home page</li>
@@ -483,7 +489,7 @@ background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #00000045 100%);
                
 
                 <div class="benchmark-forms" >
-                    <h1>nie wiem jakiś nagłówek</h1>
+                    <h1>Batery benchmark v2.0</h1>
 
                     <form method="post" id="form_new" >
                         <span class="benchmark-forms-label">typ testu</span>
@@ -494,18 +500,18 @@ background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #00000045 100%);
                         </select> -->
                         <div class="benchmark-radios" onchange="move_Select()" id="Comment_select">
                             <!-- <div class="benchmark-radio"> -->
-                                <input type="radio" id="radio-c" name="fav_language" value="kalibracja" checked>
+                                <input type="radio" id="radio-c" name="benchmark-radio" value="kalibracja" checked>
 
                                 <label tabindex="0" for="radio-c">kalibracja</label>
                             <!-- </div>
                             <div class="benchmark-radio"> -->
-                                <input type="radio" id="radio-s" name="fav_language" value="stabilność">
+                                <input type="radio" id="radio-s" name="benchmark-radio" value="stabilność">
 
                                 <label tabindex="0" for="radio-s">stabilność</label>
                             <!-- </div>
 
                                 <div class="benchmark-radio"> -->
-                                <input type="radio" id="radio-other" name="fav_language" value="inne" >
+                                <input type="radio" id="radio-other" name="benchmark-radio" value="inne" >
 
                                 <label tabindex="0" for="radio-other">inne</label>
                             <!-- </div> -->
@@ -513,9 +519,9 @@ background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #00000045 100%);
                         <input name="Comment" id="Comment_input" class="hidden" placeholder="wpisz typ testu">      
 
                         <span class="benchmark-forms-label">numer naprawy</span>    
-                        <input name="Repair" value="" placeholder="np. 35423" >
+                        <input class="repair" type="number" name="Repair" value="" placeholder="np. 35423" min="1" max="99999" required >
                         <span class="benchmark-forms-label">naładowanie baterii</span>
-                        <input class="charge" name="Charge"  type="number" min="0" max="100" value="100">                                        
+                        <input class="level" name="Level"  type="number" min="0" max="100" value="100">                                        
                         <span class="benchmark-forms-label">kondycja baterii</span> 
                         <input class="health"name="Health" type="number" min="0" max="100" value="100">                                              
                         <span class="benchmark-forms-label">który cykl</span> 
@@ -575,15 +581,25 @@ background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #00000045 100%);
                     <table class="" id="sample_data">
                         <thead>
                             <tr>
-                                <th>id</th>
+                                <!-- <th>id</th>
                                 <th>repair</th>
                                 <th>health</th>
                                 <th>cycle</th>
                                 <th>level</th>
                                 <th>start</th>
                                 <th>last</th>
+                                <th>info</th>   -->
+                                <th>id</th>
+                                <th>status</th>
+                                <th>repair</th>
+                                <th>health</th>
+                                <th>cycle</th>
+                                <th>level</th>
+                                <th>time</th>
+
+                                <!-- <th>start</th>
+                                <th>last</th> -->
                                 <th>info</th>  
-                                <th></th>                      
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -595,7 +611,7 @@ background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #00000045 100%);
     
 
 
-
+`
 
 <!-- 
         <div class="modal" tabindex="-1" id="action_modal">
@@ -648,43 +664,82 @@ background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #00000045 100%);
     </div>
 </div>
 
-<footer>
-    <span>stupka</span>
 
-</footer>
-</body>
 
 
 <script>
-   
-    function move_Select(){
+function showHideRow(row) {
+    $("#" + row).toggle();
+    // console.log(document.getElementsByClassName(`table-id-${row}`), `${row}`)
+    document.getElementsByClassName(`table-id-${row}`)[0].parentElement.classList.toggle("active")
+}
+
+</script>
+<script>
+   function move_Select(){
+    let coment_radio=document.getElementById("Comment_select")
+    let coment_input=document.getElementById("Comment_input")
+    if (coment_radio.value == "inne"){
+       
+        coment_input.value = "a"
+    }
+    else{
+       
+    }
         if(document.getElementById('radio-other').checked) {
             document.getElementById("Comment_input").classList.remove("hidden");
             document.getElementById("Comment_input").focus();
-        } else {
+            document.getElementById("Comment_input").value = "";
+        } 
+        else if (document.getElementById('radio-s').checked){
             document.getElementById("Comment_input").classList.add("hidden")
+            document.getElementById("Comment_input").value = "Stabolność"
+        }
+        else if (document.getElementById('radio-c').checked){
+            document.getElementById("Comment_input").classList.add("hidden")
+            document.getElementById("Comment_input").value = "Kalibracja"
         }
     }
     move_Select();
-
+    
     function runner(){
         var mode = document.getElementById("run")
         var but = document.getElementById("start_button")
 
         if (mode.value == "1"){
+            document.getElementsByClassName('level')[0].disabled = false
+            document.getElementsByClassName('health')[0].disabled = false
+            document.getElementsByClassName('repair')[0].disabled = false
+            document.getElementsByClassName('cycle')[0].disabled = false
+            document.getElementById("radio-s").disabled = false
+            document.getElementById("radio-c").disabled = false
+            document.getElementById("radio-other").disabled = false
+
+
             mode.value = 0
             but.style='background-color: red'
-            but.value='zakończony, kliknij aby rozpocząć'
+            // but.style='font-color: black'
+            but.value='Test zakończony, kliknij aby uruchomić ponownie'
         }
         else if (mode.value == "0") {
+            document.getElementsByClassName('level')[0].disabled = true
+            document.getElementsByClassName('health')[0].disabled = true
+            document.getElementsByClassName('repair')[0].disabled = true
+            document.getElementsByClassName('cycle')[0].disabled = true
+            document.getElementById("radio-s").disabled = true
+            document.getElementById("radio-c").disabled = true
+            document.getElementById("radio-other").disabled = true
+
+
+
             mode.value = 1
-            but.style='background-color: lime'
-            but.value='aktywny, kliknij aby zakończyć'
+            but.style='background-color: green'
+            but.value='Test trwa, kliknij aby zakońćzyć'
             document.getElementById("submit_new").click()
            
             
-            timeout = setTimeout(update_id,3000);
-            timeout = setTimeout(send,3000);
+            timeout = setTimeout(update_id,10000);
+            timeout = setTimeout(send,10000);
            
         }
     }
@@ -731,7 +786,12 @@ var rowLength = oTable.rows.length;
     function autoload(){
 
         document.getElementById('refresh').click()
-        timeout = setTimeout(autoload,3000);
+
+
+
+
+
+        timeout = setTimeout(autoload, 6000);
     }
     
     autoload()
@@ -766,68 +826,101 @@ alert(pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3));
     
         load_data();
     
+        // load_data();
+    
         function load_data()
         {
+            function getRandomDate() {
+                const maxDate = Date.now();
+                // console.log(maxDate)
+                const timestamp = Math.floor(Math.random() * (maxDate - 1685455020000) + 1685455020000);
+                const retDate = new Date(timestamp);
+                return retDate.setSeconds(0, 0)
+            }
+
+            const d = new Date();
+            const testTime = getRandomDate();
+            const getNowTime = d.setSeconds(0, 0);
+
+            // if (testTime > time)
+
 
                     var html = '';
     
   
-                        for(var count = 0; count < 40; count++)
-                        {
-                            html += `
-                            <tr>
-                                <td class="table-id">${count}</td>
-                                <td class="table-repair">${Math.floor(Math.random() * (79999 - 10001) + 10000)}</td>
+                    //     for(var count = 0; count < 50; count++)
+                    //     {
+                    //         html += `
+                    //         <tr onclick="showHideRow('hidden_row${count}');">
+                    //             <td class="table-id table-id-hidden_row${count}">${count}</td>
+                    //             <td class="table-repair">${getRandomDate() >= getNowTime ? 'on' : 'off'}</td>
 
-                                <td class="table-health">100%</td>
+                    //             <td class="table-repair">12345</td>
 
-                                <td class="table-cycle">26</td>
+                    //             <td class="table-health">100%</td>
 
-                                <td class="table-start">12:43•25-04</td>
+                    //             <td class="table-cycle">26</td>
+                    //             <td class="table-level">100%</td>
 
-                                <td class="table-last">16:54•26-04</td>
-                                <td class="table-info">kalibracja</td>
-                                <td class="table-calc"><button class="calc-button">oblicz czas</button></td>
+                    //             <td class="table-last">7:49</td>
+                    //             <td class="table-info">kalibracja</td>
+            
 
-          
-                            </tr>
-                            `;
-                        }
+                    //         </tr>
+                    //         <tr id="hidden_row${count}" class="hidden_row">
+                    //             <td></td>
+                    //             <td colspan=3 class="table-start">${getRandomDate()}</td>
+
+                    //             <td colspan=4 class="table-last">${getNowTime}</td>
+                    //         </tr>
+                    //         `;
+                    //     }
                     
     
-                    $('#sample_data tbody').html(html);
+                    // $('#sample_data tbody').html(html);
                 
-            // $.ajax({
-            //     url:"http://192.168.2.222:3000/action",
-            //     method:"POST",
-            //     data:{action:'fetch'},
-            //     dataType : "JSON",
-            //     success:function(data)
-            //     {
-            //         var html = '';
+            $.ajax({
+                url:"http://192.168.2.222:3000/action",
+                method:"POST",
+                data:{action:'fetch'},
+                dataType : "JSON",
+                success:function(data)
+                {
+                    var html = '';
     
-            //         if(data.data.length >= 0)
-            //         {
-            //             for(var count = 0; count < 10; count++)
-            //             {
-            //                 html += `
-            //                 <tr>
-            //                     <td>`+data.data[count].id+`</td>
-            //                     <td>`+data.data[count].Repair+`</td>
-            //                     <td>`+data.data[count].Health+`</td>
-            //                     <td>`+data.data[count].Cycle+`</td>
-            //                     <td>`+data.data[count].Start+`</td>
-            //                     <td>`+data.data[count].Last+`</td>
-            //                     <td>`+data.data[count].Comment+`</td>
-            //                     <td><button type="button" onclick="dif('${data.data[count].Start}', '${data.data[count].Last}')">Oblicz czas</button>&nbsp;<button type="button" class="btn btn-warning btn-sm edit" data-id="`+data.data[count].id+`" hidden>Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm delete" data-id="`+data.data[count].id+`" hidden>Delete</button></td>
-            //                 </tr>
-            //                 `;
-            //             }
-            //         }
+                    if(data.data.length >= 0)
+                    {
+                        for(var count = 0; count < 10; count++)
+                        {
+                            html += `
+                            <tr onclick="showHideRow('hidden_row${count}');">
+
+                                <td class="table-id table-id-hidden_row${count}>`+data.data[count].id+`</td>
+                                <td class="table-repair">${data.data[count].Last >= getNowTime ? 'on' : 'off'}</td>
+
+                                <td>`+data.data[count].Repair+`</td>
+                                <td>`+data.data[count].Health+`</td>
+                                <td>`+data.data[count].Cycle+`</td>
+                            
+                                <td class="table-info">`+data.data[count].Comment+`</td>
+                            </tr>
+
+                            <tr id="hidden_row${count}" class="hidden_row">
+                                <td></td>
+                                <td colspan=3 class="table-start">${getRandomDate()}</td>
+
+                                <td colspan=4 class="table-last">${getNowTime}</td>
+                            </tr>
+                    
+         
+                            
+                            `;
+                        }
+                    }
     
-            //         $('#sample_data tbody').html(html);
-            //     }
-            // });
+                    $('#sample_data tbody').html(html);
+                }
+            });
         }
     
         $('#add_data').click(function(){
@@ -897,6 +990,7 @@ alert(pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3));
                     $('#Repair').val(data.Repair);
                     $('#Health').val(data.Health);
                     $('#Cycle').val(data.Cycle);
+                    $('#Level').val(data.Level);
                     $('#Start').val(data.Start);
                     $('#Last').val(data.Last);
                     $('#Comment').val(data.Comment);
