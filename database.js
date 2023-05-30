@@ -3,14 +3,14 @@ const mysql = require('mysql');
 var connection = mysql.createConnection({
 	host : '192.168.2.222',
 	database : 'batmark2',
-	user : 'root',
-	password : ''
+	user : 'bataj_bot',
+	password : 'Z9H!G/Vps1izDgJ0'
 });
 
 connection.connect(function(error){
 	if(error)
 	{
-		throw error;
+		console.log(error);
 	}
 	else
 	{

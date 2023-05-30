@@ -22,6 +22,7 @@ router.post("/action", function(request, response, next){
 		var Health = request.body.Health;
 
 		var Cycle = request.body.Cycle;
+		var Level = request.body.Level;
 
 		var Start = request.body.Start;
 
@@ -30,12 +31,10 @@ router.post("/action", function(request, response, next){
 		var Comment = request.body.Comment;
 		var query = `
 		INSERT INTO mark 
-		(id, Repair, Health, Cycle, Start, Last, Comment)
-		VALUES ("", "${Repair}", "${Health}", "${Cycle}", "${date_time}", "${date_time}", "${Comment}")
+		(id, Repair, Health, Cycle, Start, Last, Comment, Level)
+		VALUES ("", "${Repair}", "${Health}", "${Cycle}", "${date_time}", "${date_time}", "${Comment}", "${Level}")
 		`;
-
-	
-		console.log(localquery)
+		console.log(query)
 		database.query(query, function(error, data){
 
 			response.json({
@@ -83,7 +82,6 @@ router.post("/action", function(request, response, next){
 	{
 		var query = "SELECT * FROM mark ORDER BY id DESC";
 
-
 		database.query(query, function(error, data){
 
 			response.json({
@@ -103,6 +101,8 @@ router.post("/action", function(request, response, next){
 
 		var Cycle = request.body.Cycle;
 
+		var Level = request.body.Level;
+
 		var Start = request.body.Start;
 
 		var Last = request.body.Last;
@@ -112,8 +112,8 @@ router.post("/action", function(request, response, next){
 
 		var query = `
 		INSERT INTO mark 
-		(id, Repair, Health, Cycle, Start, Last, Comment)
-		VALUES ("", "${Repair}", "${Health}", "${Cycle}", "${Start}", "${Last}", "${Comment}")
+		(id, Repair, Health, Cycle, Start, Last, Comment, Level)
+		VALUES ("", "${Repair}", "${Health}", "${Cycle}", "${Start}", "${Last}", "${Comment}", "${Level}")
 		`;
 
 		database.query(query, function(error, data){
@@ -148,6 +148,8 @@ router.post("/action", function(request, response, next){
 		var Health = request.body.Health;
 
 		var Cycle = request.body.Cycle;
+		
+		var Level = request.body.Level;
 
 		var Start = request.body.Start;
 
@@ -164,6 +166,7 @@ router.post("/action", function(request, response, next){
 		Start = "${Start}", 
 		Last = "${Last}", 
 		Comment = "${Comment}" 
+		Level = "${Level}" 
 		WHERE id = "${id}"
 		`;
 
