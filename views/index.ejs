@@ -519,7 +519,7 @@ input[type=number] {
                         <input name="Comment" id="Comment_input" class="hidden" placeholder="wpisz typ testu">      
 
                         <span class="benchmark-forms-label">numer naprawy</span>    
-                        <input class="repair" type="number" name="Repair" value="" placeholder="np. 35423" min="1" max="99999" required >
+                        <input class="repair" name="Repair" value="" placeholder="np. 35423" required >
                         <span class="benchmark-forms-label">naładowanie baterii</span>
                         <input class="level" name="Level"  type="number" min="0" max="100" value="100">                                        
                         <span class="benchmark-forms-label">kondycja baterii</span> 
@@ -791,7 +791,7 @@ var rowLength = oTable.rows.length;
 
 
 
-        timeout = setTimeout(autoload, 6000);
+        timeout = setTimeout(autoload, 60000);
     }
     
     autoload()
@@ -845,60 +845,29 @@ alert(pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3));
             // if (testTime > time)
 
 
-                    var html = '';
     
-  
-                    //     for(var count = 0; count < 50; count++)
-                    //     {
-                    //         html += `
-                    //         <tr onclick="showHideRow('hidden_row${count}');">
-                    //             <td class="table-id table-id-hidden_row${count}">${count}</td>
-                    //             <td class="table-repair">${getRandomDate() >= getNowTime ? 'on' : 'off'}</td>
-
-                    //             <td class="table-repair">12345</td>
-
-                    //             <td class="table-health">100%</td>
-
-                    //             <td class="table-cycle">26</td>
-                    //             <td class="table-level">100%</td>
-
-                    //             <td class="table-last">7:49</td>
-                    //             <td class="table-info">kalibracja</td>
-            
-
-                    //         </tr>
-                    //         <tr id="hidden_row${count}" class="hidden_row">
-                    //             <td></td>
-                    //             <td colspan=3 class="table-start">${getRandomDate()}</td>
-
-                    //             <td colspan=4 class="table-last">${getNowTime}</td>
-                    //         </tr>
-                    //         `;
-                    //     }
-                    
-    
-                    // $('#sample_data tbody').html(html);
                 
             $.ajax({
-                url:"http://192.168.2.222:3000/action",
+                url:"http://192.168.2.222:5555/action",
                 method:"POST",
                 data:{action:'fetch'},
                 dataType : "JSON",
                 success:function(data)
                 {
                     var html = '';
-    
+                    console.log(data)
                     if(data.data.length >= 0)
                     {
-                        for(var count = 0; count < 10; count++)
+                        for(var count = 0; count < 20; count++)
                         {
+                            console.log(data.data[count].id)
                             html += `
                             <tr onclick="showHideRow('hidden_row${count}');">
 
-                                <td class="table-id table-id-hidden_row${count}>`+data.data[count].id+`</td>
+                                <td class="table-id table-id-hidden_row${count}">${data.data[count].id}</td>
                                 <td class="table-repair">${data.data[count].Last >= getNowTime ? 'on' : 'off'}</td>
 
-                                <td>`+data.data[count].Repair+`</td>
+                                <td>${data.data[count].Repair}</td>
                                 <td>`+data.data[count].Health+`</td>
                                 <td>`+data.data[count].Cycle+`</td>
                             
@@ -942,7 +911,7 @@ alert(pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3));
             event.preventDefault();
     
             $.ajax({
-                url:"http://192.168.2.222:3000/action",
+                url:"http://192.168.2.222:5555/action",
                 method:"POST",
                 data:$('#sample_form').serialize(),
                 dataType:"JSON",
@@ -980,7 +949,7 @@ alert(pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3));
             $('#action_modal').modal('show');
     
             $.ajax({
-                url:"http://192.168.2.222:3000/action",
+                url:"http://192.168.2.222:5555/action",
                 method:"POST",
                 data:{id:id, action:'fetch_single'},
                 dataType:"JSON",
@@ -1006,7 +975,7 @@ alert(pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3));
             if(confirm("Are you sure you want to delete this data?"))
             {
                 $.ajax({           
-                    url:"http://192.168.2.222:3000/action",
+                    url:"http://192.168.2.222:5555/action",
                     method:"POST",
                     data:{action:'delete', id:id},
                     dataType:"JSON",
@@ -1033,7 +1002,7 @@ $('#form_new').submit(function(event){
             event.preventDefault();
     
             $.ajax({
-                url:"http://192.168.2.222:3000/action",
+                url:"http://192.168.2.222:5555/action",
                 method:"POST",
                 data:$('#form_new').serialize(),
                 dataType:"JSON",
@@ -1057,7 +1026,7 @@ $('#form_update').submit(function(event){
        event.preventDefault();
 
        $.ajax({
-           url:"http://192.168.2.222:3000/action",
+           url:"http://192.168.2.222:5555/action",
            method:"POST",
            data:$('#form_update').serialize(),
            dataType:"JSON",
