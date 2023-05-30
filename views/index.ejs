@@ -113,7 +113,7 @@ input[type=number] {
     .local-player, .youtube-player {
         width: 50%;
         max-width: 400px;
-        position: fixed;
+        /* position: fixed; */
         left: 10px;
         bottom: 5px;
         /* background-color: yellow; */
@@ -368,8 +368,10 @@ input[type=number] {
 
 /* ------------------------ */
     footer {
-        /* background-color: turquoise; */
+        background-color: turquoise;
         height: 3em;
+        /* bottom: 0; */
+
         /* position: fixed;
         bottom: 0;
         width: 100%; */
@@ -577,6 +579,7 @@ background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #00000045 100%);
                                 <th>repair</th>
                                 <th>health</th>
                                 <th>cycle</th>
+                                <th>level</th>
                                 <th>start</th>
                                 <th>last</th>
                                 <th>info</th>  
@@ -647,6 +650,7 @@ background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #00000045 100%);
 
 <footer>
     <span>stupka</span>
+
 </footer>
 </body>
 
@@ -783,7 +787,7 @@ alert(pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3));
 
                                 <td class="table-last">16:54•26-04</td>
                                 <td class="table-info">kalibracja</td>
-                                <td class="table-calc"><button class="calc-button">hhh</button></td>
+                                <td class="table-calc"><button class="calc-button">oblicz czas</button></td>
 
           
                             </tr>
