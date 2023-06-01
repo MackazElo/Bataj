@@ -86,7 +86,7 @@ input[type=number] {
     .content{
         width: 100%;
         /* top: 0; */
-
+        height: 100%;
         /* display: flex;
         flex-wrap: wrap; */
         background-color: var(--main-background);
@@ -104,25 +104,33 @@ input[type=number] {
         /* z-index: 1; */
         box-shadow: rgba(0, 0, 0, .1) 0px -10px 10px;
         min-width: 440px;
-
+        /* max-height: 1000px; */
+ 
         /* padding: 20px; */
     }
     .local-player, .youtube-player {
-        width: 50%;
+        /* width: 50%; */
         max-width: 400px;
         /* position: fixed; */
+        /* margin: 0; */
         /* left: 10px; */
-        bottom: 5px;
+        /* bottom: 5px; */
         /* background-color: yellow; */
+        margin-left:auto;margin-right:auto;
+        border: 1px solid var(--main-border);
+
+
     }
     .youtube-player {
         /* padding-left: 420px; */
     }
     .benchmark-video {
-        width: 50%;
+        /* width: 50%; */
     }
     .local-player video {
+        /* background-color: black; */
         width: 100%;
+        /* border: 1px solid var(--main-border); */
         min-height: 220px;
         /* margin-left: auto; */
         /* margin-right: auto; */
@@ -162,33 +170,71 @@ input[type=number] {
   
     .table-content th {
         text-align: center;
-        padding: 8px;
+        /* padding: 8px; */
+        /* height: 30px; */
         /* padding-left: 30px; */
         /* background-color: turquoise; */
         font-weight: bold;
     }
+    .repai-head {
+        text-align: left !important;
+    }
     .table-content th:last-child {
         padding-right: 10px;
     }
-    .calc-button {
-        width: 40px;
-        height: 40px;
-        margin-left: auto;
-        margin-right: auto;
+
+    .table-content thead tr {
+        border-bottom:0 ;
     }
-    .table-content th:first-child {
-        padding-left: 12px;
+    .table-content tr:nth-child(0) {
+        /* padding-left: 12px; */
+        /* font-weight: bold; */
+        /* border-top: 0;
+        background-color: #1d4821 !important; */
     }
     .table-content thead tr th {
         background-color: var(--main-border);
+        /* background-color: red; */
         color: var(--main-background);
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
         position: sticky;
-        top: 36px;
+        /* padding: 0 1px; */
+        /* border-right: 1px solid white; */
+        /* padding-top: 4px; */
+        top: 35px;
     }
-    .table-content td {
+    .table-content thead tr {
+        /* background-color: green !important; */
+        height: 35px;
+    }
+    .table-content thead {
+        height: 35px !important;
+    }
+    .table-content th {
+        height: 35px;
+        padding: 0;
+    }
+    .table-content td,   .table-content tr  {
         /* padding-left: 10px; */
+        word-wrap: break-word;
+        /* max-width: 60px; */
     }
+    .repair-head, .repair-table {
+        /* background-color: red; */
+        max-width: 100px;
+        /* text-align: center; */
+    }
+    .id-head, .id-table {
+        /* background-color: red; */
+        width: 60px;
+        text-align: center;
+    }
+    .health-head, .health-table, .cycle-head, .cycle-table, .level-head, .level-table {
+        /* background-color: red; */
+        width: 80px;
+        text-align: center;
+    }
+
     .table-content tr:nth-child(2n+1) {
         background-color: var(--main-background);
         
@@ -196,22 +242,18 @@ input[type=number] {
     .table-content tr {
         background-color: var(--secondary-background);
         border-bottom: 1px solid var(--main-border);
-        height: 50px;
+        height: 35px;
         /* margin: 20px; */
         /* box-shadow: inset 21px 4px 39px -50px rgba(0, 0, 0, 1); */
     }
-    .table-id {
-        /* background-color: white; */
-        text-align: center;
-        padding-left: 10px;
-    }
+    
     .table-repair, .table-health, .table-cycle, .table-level {
         text-align: center;
     }
 
     .navbar {
         background-color: var(--main-border);
-        height: 38px;
+        height: 35px;
         width: 100%;
         position: sticky;
         top: 0;
@@ -235,6 +277,7 @@ input[type=number] {
         background-color: var(--main-background);
         color: var(--main-font);
         border: 1px solid var(--main-border);
+        
         display: flex;
         justify-content: center;
         align-items: center;
@@ -300,6 +343,7 @@ input[type=number] {
         padding-bottom: 12px;
         /* user-select: none; */
     }
+   
     .benchmark-radios label {
         user-select: none;
         background-color: var(--main-background);
@@ -335,6 +379,12 @@ input[type=number] {
 
         background-color: var(--secondary-background);
     }
+    #radio-s:disabled + label,  #radio-c:disabled + label,  #radio-other:disabled + label,     .benchmark-forms-input:disabled {     
+        cursor:not-allowed;   
+        color: var(--disabled-font);
+        border-color: var(--disabled-font);
+        background-color: var(--secondary-background);
+ }
     .benchmark-radios {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -351,6 +401,7 @@ input[type=number] {
    
     #start_button {
         /* border-radius: 0; */
+        /* cursor: pointer; */
         box-sizing: border-box;
         margin-top: 10px;
         font-size: 1.1em;
@@ -362,7 +413,7 @@ input[type=number] {
         width: 100%;
         height: 52px;
         max-width: 400px;
-        cursor: pointer;
+        cursor: pointer !important;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     }
     #start_button:hover {
@@ -385,6 +436,14 @@ input[type=number] {
 /* table */
     .hidden_row {
             display: none;
+            background-color: red !important;
+            height: 100px !important;
+            text-align: left;
+        vertical-align: top;
+        }
+        .table-info {
+            width: 10px !important;
+
         }
     .active {
         background-color: red !important;
@@ -395,19 +454,26 @@ input[type=number] {
    
     @media only screen and (min-width: 992px) {
         /* @media only screen and (min-width: 1064px) { */
-
+            .benchmark-video {
+        /* width: 50%; */
+        margin-left:auto;margin-right:auto;
+    }
         .content {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             grid-column-gap: 0px;
             grid-row-gap: 0px;
-            height: 90vh;
+            height: calc(100vh - 35px);
         }
         .benchmark {
             /* background-color:yellowgreen; */
+            height: calc(100vh - 35px);
+        max-height: calc(100vh - 35px);
+
+        overflow: scroll;
         }
         .table {
-            margin-top: -39px;
+            margin-top: -35px;
             top: -10px;
             z-index: 11;
         }
@@ -438,15 +504,7 @@ input[type=number] {
         top: 0px; */
         top: 0;
     }
-        .gradientBottom {
-            position: absolute;
-            bottom: 0px;
-            right: 0;
-            width: 50%;
-            height: 200px;
-            /* background-color: red; */
-            /* box-shadow: inset -4px -34px 39px -52px rgba(0, 0, 0, 1); */
-        }
+        
     }
 
     
@@ -516,16 +574,16 @@ input[type=number] {
                                 <label tabindex="0" for="radio-other">inne</label>
                             <!-- </div> -->
                         </div>
-                        <input name="Comment" id="Comment_input" class="hidden" placeholder="wpisz typ testu">      
+                        <input name="Comment" id="Comment_input" class="benchmark-forms-input hidden" placeholder="wpisz typ testu">      
 
                         <span class="benchmark-forms-label">numer naprawy</span>    
-                        <input class="repair" name="Repair" value="" placeholder="np. 35423" >
+                        <input type="number" class="benchmark-forms-input repair" name="Repair" value="" placeholder="np. 35423" min="0" max="999999" required >
                         <span class="benchmark-forms-label">naładowanie baterii</span>
-                        <input class="level" name="Level"  type="number" min="0" max="100" value="100">                                        
+                        <input class="benchmark-forms-input level" name="Level"  type="number" min="0" max="100" value="100">                                        
                         <span class="benchmark-forms-label">kondycja baterii</span> 
-                        <input class="health"name="Health" type="number" min="0" max="100" value="100">                                              
+                        <input class="benchmark-forms-input health"name="Health" type="number" min="0" max="100" value="100">                                              
                         <span class="benchmark-forms-label">który cykl</span> 
-                        <input class="cycle" name="Cycle"  type="number" min="0" value="0">                                                               
+                        <input class="benchmark-forms-input cycle" name="Cycle"  type="number" min="0" value="0">                                                               
                     
 
 
@@ -589,22 +647,21 @@ input[type=number] {
                                 <th>start</th>
                                 <th>last</th>
                                 <th>info</th>   -->
-                                <th>id</th>
-                                <th>status</th>
-                                <th>repair</th>
-                                <th>health</th>
-                                <th>cycle</th>
-                                <th>level</th>
-                                <th>time</th>
+                                <th class="id-head">id</th>
+                                <!-- <th class="status-head">status</th> -->
+                                <th class="repai-head">repair</th>
+                                <th class="health-head">health</th>
+                                <th class="cycle-head">cycle</th>
+                                <th class="level-head">level</th>
+                                <!-- <th>time</th> -->
 
                                 <!-- <th>start</th>
                                 <th>last</th> -->
-                                <th>info</th>  
+                                <!-- <th>info</th>   -->
                             </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
-                    <div class="gradientBottom"></div>
                 </div>
             </div>
         </div>
@@ -814,7 +871,8 @@ s = (s - secs) / 60;
 var mins = s % 60;
 var hrs = (s - mins) / 60;
 
-alert(pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3));
+// alert(pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3));
+return pad(hrs) + ':' + pad(mins) + ':' + pad(secs);
 }
     
     </script>
@@ -890,28 +948,32 @@ alert(pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3));
     
                     if(data.data.length >= 0)
                     {
-                        console.log(Date(1685461461000))
                         for(var count = 0; count < data.data.length; count++)
                         {
-                            const testDate = new Date(data.data[count].Last)
+                            const startDate = new Date(data.data[count].Start)
+                            const lastDate = new Date(data.data[count].Last)
                             html += `
                             <tr onclick="showHideRow('hidden_row${count}');">
 
-                                <td class="table-id table-id-hidden_row${count}">`+data.data[count].id+`</td>
-                                <td class="table-repair">${testDate.getTime() >= getNowTime ? '🟢' : '🔴'}</td>
+                                <td class="id-table table-id-hidden_row${count}">${data.data[count].id}</td>
 
-                                <td>${data.data[count].Repair}</td>
-                                <td>`+data.data[count].Health+`</td>
-                                <td>`+data.data[count].Cycle+`</td>
+                                <td class="repair-table">${lastDate.getTime() >= getNowTime ? '🟢' : '🔴'} <a href="https://app.asana.com/0/search?q=${data.data[count].Repair}" target="_blank">${data.data[count].Repair}</a></td>
+                                <td class="health-table">${data.data[count].Health}%</td>
+                                <td class="cycle-table">${data.data[count].Cycle}</td>
+                                <td class="level-table">${data.data[count].Level}%</td>
+§
                             
-                                <td class="table-info">`+data.data[count].Comment+`</td>
                             </tr>
 
                             <tr id="hidden_row${count}" class="hidden_row">
-                                <td></td>
-                                <td colspan=3 class="table-start">${testDate.getTime()}</td>
+                                <td colspan=2 class="table-info">`+data.data[count].Comment+`</td>
 
-                                <td colspan=4 class="table-last">${getNowTime}</td>
+                                <td colspan=1 class="table-start">${dif(startDate, lastDate)}</td>
+                                <td colspan=1 class="table-start">${startDate.getHours()}:${startDate.getMinutes()} ${startDate.getDate()}-${startDate.getMonth()}</td>
+
+                                <td colspan=1 class="table-start">${lastDate.getHours()}:${lastDate.getMinutes()} ${lastDate.getDate()}-${lastDate.getMonth()}</td>
+
+
                             </tr>
                     
          
