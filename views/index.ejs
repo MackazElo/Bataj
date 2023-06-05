@@ -2,7 +2,7 @@
 <style>
     :root{
     --main-background: #fffdfd;
-    --secondary-background: #f8f8f8;
+    --secondary-background: #efefef;
     --hover-background: #a3a3a3;
 
     --main-font: #15131c;
@@ -77,8 +77,12 @@ input[type=number] {
 }
 
 .hidden {
-        display: none;
-    }
+    visibility:hidden;
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    background-color: red;
+}
     /* end reset css */
 /* ------------------------ */
 
@@ -101,6 +105,9 @@ input[type=number] {
         /* width: 50%; */
         /* right: 0; */
         padding-top: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+
         /* z-index: 1; */
         box-shadow: rgba(0, 0, 0, .1) 0px -10px 10px;
         min-width: 440px;
@@ -109,8 +116,14 @@ input[type=number] {
         /* padding: 20px; */
     }
     .local-player, .youtube-player {
-        /* width: 50%; */
-        max-width: 400px;
+        flex-direction: column;
+  justify-content: center;
+  text-align: center;        /* width: 50%; */
+        max-width: 410px;
+        margin-top: 25px;
+        padding: 0;
+        /* padding-top: 25px; */
+        padding-bottom: 25px;
         /* position: fixed; */
         /* margin: 0; */
         /* left: 10px; */
@@ -120,6 +133,10 @@ input[type=number] {
         border: 1px solid var(--main-border);
 
 
+    }
+    .local-player h1, .youtube-player h1 {
+        padding-top: 15px;
+        padding-bottom: 15px;
     }
     .youtube-player {
         /* padding-left: 420px; */
@@ -231,7 +248,7 @@ input[type=number] {
     }
     .health-head, .health-table, .cycle-head, .cycle-table, .level-head, .level-table {
         /* background-color: red; */
-        width: 80px;
+        width: 90px;
         text-align: center;
     }
 
@@ -277,9 +294,10 @@ input[type=number] {
         background-color: var(--main-background);
         color: var(--main-font);
         border: 1px solid var(--main-border);
-        
+        /* max-height: 0px; */
+        overflow: hidden;
         display: flex;
-        justify-content: center;
+        /* justify-content: center; */
         align-items: center;
         flex-direction: column;
         margin-left: auto;
@@ -290,7 +308,10 @@ input[type=number] {
         padding: 15px 5px 22px;
         max-width: 400px;
         /* z-index: 1; */
-
+        /* transition: all 500ms ease-in-out; */
+    }
+    .benchmark-forms:hover {
+        max-height: 600px;
     }
     .benchmark-forms form {
         width: 380px;
@@ -344,7 +365,7 @@ input[type=number] {
         /* user-select: none; */
     }
    
-    .benchmark-radios label {
+    .benchmark-radios label, .benchmark-button {
         user-select: none;
         background-color: var(--main-background);
         display: inline-block;
@@ -360,7 +381,28 @@ input[type=number] {
     .benchmark-radios label:nth-child(4) {
         margin: 0 2px;
     }
-    .benchmark-radios input[type="radio"]:checked + label {
+    .benchmark-radios .benchmark-button:nth-child(2) {
+        margin: 0 3px;
+    }
+    .benchmark-radios .benchmark-button {
+        /* margin: 0 14px; */
+
+    }
+    .benchmark-button {
+        cursor: pointer;
+    }
+    .benchmark-button:hover {
+        /* background-color: var(--secondary-background); */
+        transition: .1s;
+        border-color: var(--main-border);
+        color: var(--main-font);
+    }
+    .active-section:hover  {
+    color: var(--main-background);
+    }
+
+
+    .benchmark-radios input[type="radio"]:checked + label , .benchmark-button:active, .active-section{
         /* color: var(--main-font);
         background-color: var(--secondary-background);
         border-color: var(--main-border); */
@@ -397,7 +439,19 @@ input[type=number] {
         /* z-index: 100; */
         /* padding-left: 4px; */
     }
-  
+    .activeMode {
+        background-color: #198523 !important;
+        color: var(--main-background);
+        transition: color 200ms ease-in-out;
+    }
+    .stopMode {
+        background-color: #b72b18 !important;
+        color: var(--main-background);
+        transition: color 200ms ease-in-out;
+    }
+    .activeMode:hover, .stopMode:hover {
+        color: #ffffffa8 !important;
+    }
    
     #start_button {
         /* border-radius: 0; */
@@ -436,8 +490,8 @@ input[type=number] {
 /* table */
     .hidden_row {
             display: none;
-            background-color: red !important;
-            height: 100px !important;
+            background-color: var(--secondary-background) !important;
+            height: 60px !important;
             text-align: left;
         vertical-align: top;
         }
@@ -446,7 +500,8 @@ input[type=number] {
 
         }
     .active {
-        background-color: red !important;
+        background-color: var(--secondary-background) !important;
+
         /* border: 3px solid black; */
     }
 
@@ -458,17 +513,22 @@ input[type=number] {
         /* width: 50%; */
         margin-left:auto;margin-right:auto;
     }
+    body {
+        /* max-height: calc(90vh - 35px); */
+        overflow-y: hidden;
+    }
         .content {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             grid-column-gap: 0px;
             grid-row-gap: 0px;
             height: calc(100vh - 35px);
+            /* overflow: hidden; */
         }
         .benchmark {
             /* background-color:yellowgreen; */
-            height: calc(100vh - 35px);
-        max-height: calc(100vh - 35px);
+            /* height: calc(90vh - 35px);
+        max-height: calc(90vh - 35px); */
 
         overflow: scroll;
         }
@@ -476,11 +536,15 @@ input[type=number] {
             margin-top: -35px;
             top: -10px;
             z-index: 11;
+            /* max-height: calc(100vh - 35px); */
         }
         .navbar {
             /* width: 50%; */
             
 
+        }
+        .benchmark-forms {
+            margin-top: 25px;
         }
         .table {
             overflow: scroll;
@@ -544,10 +608,27 @@ input[type=number] {
             
             <div class="benchmark">
 
-               
+                <div class="benchmark-radios" id="Comment_select">
+                            <!-- <div class="benchmark-radio"> -->
+                                <!-- <input type="radio" id="radio-c" name="benchmark-radio" value="kalibracja" checked> -->
 
-                <div class="benchmark-forms" >
-                    <h1>Batery benchmark v2.0</h1>
+                                <div class="benchmark-button form-button" tabindex="0" onclick="changeSection('f')">formularz</div>
+                            <!-- </div>
+                            <div class="benchmark-radio"> -->
+                                <!-- <input type="radio" id="radio-s" name="benchmark-radio" value="stabilność"> -->
+
+                                <div class="benchmark-button youtube-button" tabindex="0" onclick="changeSection('y')">youtube</div>
+                            <!-- </div>
+
+                                <div class="benchmark-radio"> -->
+                                <!-- <input type="radio" id="radio-other" name="benchmark-radio" value="inne" > -->
+
+                                <div class="benchmark-button local-button" tabindex="0" onclick="changeSection('l')">local</div>
+                            <!-- </div> -->
+                        </div>
+
+                <div class="benchmark-forms hidden" >
+                    <h1>battery benchmark</h1>
 
                     <form method="post" id="form_new" >
                         <span class="benchmark-forms-label">typ testu</span>
@@ -611,12 +692,12 @@ input[type=number] {
                 </div> -->
 
                 <div class="benchmark-video">
-                    <div class="youtube-player">
-                        <h1>Youtube Video</h1>
+                    <div class="youtube-player hidden">
+                        <h1>youtube player</h1>
                         <iframe src="https://www.youtube.com/embed/a6GGZ68mOZA" title="seels 10 hours" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
-                    <div class="local-player">
-                        <h1>Local Video</h1>
+                    <div class="local-player hidden">
+                        <h1>local video player</h1>
                         <video controls loop muted>
                             <source src="seals.mp4" type="video/mp4">
                         </video>
@@ -758,10 +839,71 @@ function showHideRow(row) {
         }
     }
     move_Select();
+
+    function changeSection(tryb){
+    // let coment_radio=document.getElementById("Comment_select")
+    const form = document.getElementsByClassName("benchmark-forms")[0]
+    const youtube = document.getElementsByClassName("youtube-player")[0]
+    const local = document.getElementsByClassName("local-player")[0]
+    const formButton = document.getElementsByClassName("form-button")[0]
+    const youtubeButton = document.getElementsByClassName("youtube-button")[0]
+    const localButton = document.getElementsByClassName("local-button")[0]
+
+
+
+
+    if (tryb == "f"){
+        formButton.classList.add("active-section")
+        youtubeButton.classList.remove("active-section")
+        localButton.classList.remove("active-section")
+
+        form.classList.remove("hidden")
+        youtube.classList.add("hidden")
+        local.classList.add("hidden")
+
+    }
+    if (tryb == "y"){
+        formButton.classList.remove("active-section")
+        youtubeButton.classList.add("active-section")
+        localButton.classList.remove("active-section")
+
+        form.classList.add("hidden")
+        youtube.classList.remove("hidden")
+        local.classList.add("hidden")
+
+    }
+    if (tryb == "l"){
+        formButton.classList.remove("active-section")
+        youtubeButton.classList.remove("active-section")
+        localButton.classList.add("active-section")
+        
+        form.classList.add("hidden")
+        youtube.classList.add("hidden")
+        local.classList.remove("hidden")
+    }
+    // else{
+       
+    // }
+    //     if(document.getElementById('radio-other').checked) {
+    //         document.getElementById("Comment_input").classList.remove("hidden");
+    //         document.getElementById("Comment_input").focus();
+    //         document.getElementById("Comment_input").value = "";
+    //     } 
+    //     else if (document.getElementById('radio-s').checked){
+    //         document.getElementById("Comment_input").classList.add("hidden")
+    //         document.getElementById("Comment_input").value = "Stabolność"
+    //     }
+    //     else if (document.getElementById('radio-c').checked){
+    //         document.getElementById("Comment_input").classList.add("hidden")
+    //         document.getElementById("Comment_input").value = "Kalibracja"
+    //     }
+    }
+    changeSection();
     
     function runner(){
         var mode = document.getElementById("run")
         var but = document.getElementById("start_button")
+        const formButton = document.getElementsByClassName('form-button')[0]
 
         if (mode.value == "1"){
             document.getElementsByClassName('level')[0].disabled = false
@@ -774,8 +916,15 @@ function showHideRow(row) {
 
 
             mode.value = 0
-            but.style='background-color: red'
+            // but.style='background-color: red'
+            // formButton.style='background-color: red'
             // but.style='font-color: black'
+            but.classList.add('stopMode')
+            formButton.classList.add('stopMode')
+
+            but.classList.remove('activeMode')
+            formButton.classList.remove('activeMode')
+
             but.value='Test zakończony, kliknij aby uruchomić ponownie'
         }
         else if (mode.value == "0") {
@@ -784,7 +933,17 @@ function showHideRow(row) {
 
 
             mode.value = 1
-            but.style='background-color: green'
+            but.classList.add('activeMode')
+            formButton.classList.add('activeMode')
+            but.classList.remove('stopMode')
+            formButton.classList.remove('stopMode')
+
+            // but.style='background-color: green'
+            // formButton.style='background-color: green'
+            // formButton.style='background-color: green; color: white'
+
+            formButton.value="aaa"
+
             but.value='Test trwa, kliknij aby zakońćzyć'
             document.getElementById("submit_new").click()
            
@@ -832,7 +991,7 @@ var rowLength = oTable.rows.length;
        i++
         document.getElementById("iteration").value = i
        if(document.getElementById("run").value==1){
-       timeout = setTimeout(send,3000);
+       timeout = setTimeout(send,30000);
     
     
        }
@@ -969,9 +1128,9 @@ return pad(hrs) + ':' + pad(mins) + ':' + pad(secs);
                                 <td colspan=2 class="table-info">`+data.data[count].Comment+`</td>
 
                                 <td colspan=1 class="table-start">${dif(startDate, lastDate)}</td>
-                                <td colspan=1 class="table-start">${startDate.getHours()}:${startDate.getMinutes()} ${startDate.getDate()}-${startDate.getMonth()}</td>
+                                <td colspan=1 class="table-start">${startDate.getHours()}:${startDate.getMinutes()} \v \v \v ${startDate.getDate()}-${startDate.getMonth()}</td>
 
-                                <td colspan=1 class="table-start">${lastDate.getHours()}:${lastDate.getMinutes()} ${lastDate.getDate()}-${lastDate.getMonth()}</td>
+                                <td colspan=1 class="table-start">${lastDate.getHours()}:${lastDate.getMinutes()}\v \v \v  ${lastDate.getDate()}-${lastDate.getMonth()}</td>
 
 
                             </tr>
