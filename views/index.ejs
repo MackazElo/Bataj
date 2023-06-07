@@ -891,7 +891,7 @@
                 local.classList.remove("hidden")
             }
         }
-        changeSection();
+        changeSection('f');
 
         function runner() {
             var mode = document.getElementById("run")
@@ -1001,7 +1001,11 @@
 
                 const d = new Date();
                 const testTime = getRandomDate();
-                const getNowTime = d.setSeconds(0, 0);
+                // const getNowTime = d.setSeconds(0, 0);
+                const getNowTime = d.setMinutes(d.getMinutes() - 1);
+
+               
+
                 $.ajax({
                     url: "http://192.168.2.117:5555/action",
                     method: "POST",
