@@ -135,6 +135,7 @@
 
 
     .content {
+        /* position: relative; */
         width: 100%;
         height: 100%;
         background-color: var(--main-background);
@@ -146,7 +147,7 @@
         padding-left: 30px;
         padding-right: 30px;
         padding-bottom: 18px;
-        box-shadow: rgba(0, 0, 0, .1) 0px -10px 10px;
+        /* box-shadow: rgba(0, 0, 0, .1) 0px -10px 10px; */
         min-width: 440px;
     }
 
@@ -185,8 +186,9 @@
         height: 100%;
         top: 0;
         right: 0;
-        background-color: #eeeeee;
+        background-color: var(--main-background);
         table-layout: auto;
+        /* min-height: calc(100vh - 35px); */
         width: 100%;
         font-size: 1em;
     }
@@ -199,9 +201,10 @@
     .table-content th {
         text-align: center;
         font-weight: bold;
+        height: calc(100vh - 35px);
     }
 
-    .repai-head {
+    .repair-head {
         text-align: left !important;
     }
 
@@ -212,24 +215,71 @@
     .table-content thead tr {
         border-bottom: 0;
     }
+    .table-content tbody tr:last-child {
+        border: 0;
+        /* background-color: red; */
+    }
+    .table-content tbody tr:first-child {
+        /* border-top: 1px solid var(--main-border); */
+        /* background-color: red; */
+    }
+
     .table-content thead tr th {
         background-color: var(--main-border);
         color: var(--main-background);
-        position: sticky;
-        top: 35px;
+        /* top: 35px; */
+        height: 35px;
+        z-index: 12;
     }
 
     .table-content thead tr {
         height: 35px;
+        position: sticky;
+        top: 35px;
+        width: 100%;
+        z-index: 12;
+
     }
 
+
     .table-content thead {
-        height: 35px !important;
+        /* height: 35px !important; */
+        z-index: 12;
+
+    }
+    .copyButton {
+        /* border: 1px solid var(--main-border);
+        background-color: var(--main-background);
+        font-size: 1em; */
+        height: 37px;
+        padding: 8px;
+        cursor: pointer;
+        user-select: none;
+        margin: 10px 0;
+        width: 150px;
+        background-color: var(--main-background);
+        /* display: inline-block; */
+        text-align: center;
+        /* padding: 8px 0; */
+        font-size: 1em;
+        border: 1px solid var(--disabled-font);
+        border-radius: 6px;
+        color: var(--disabled-font);
+        transition: .1s;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    }
+    .copyButton:hover {
+        background-color: var(--secondary-background);
+        /* font-weight: bold; */
+        border-color: var(--main-border);
+        color: var(--main-font);
     }
 
     .table-content th {
-        height: 35px;
+        /* height: 35px; */
         padding: 0;
+        z-index: 12;
+
     }
 
     .table-content td,
@@ -239,8 +289,10 @@
 
     .repair-head,
     .repair-table {
-        max-width: 100px;
+        /* max-width: 100px; */
+        /* width:100%; */
     }
+    
 
     .repair-table a {
         color: var(--main-font);
@@ -262,11 +314,12 @@
     .cycle-table,
     .level-head,
     .level-table {
-        width: 90px;
+        width: 100px;
         text-align: center;
+        
     }
 
-    .table-content tr:nth-child(2n+1) {
+    .table-content tr:nth-child(4n+1) {
         background-color: var(--main-background);
 
     }
@@ -274,7 +327,7 @@
     .table-content tr {
         background-color: var(--secondary-background);
         border-bottom: 1px solid var(--main-border);
-        height: 35px;
+        height: 40px;
     }
     .table-repair,
     .table-health,
@@ -288,7 +341,7 @@
         width: 100%;
         position: sticky;
         top: 0;
-        z-index: 11;
+        z-index: 1;
 
     }
     .navbar-list {
@@ -299,6 +352,20 @@
         margin: 0 15px;
         color: var(--main-background);
         font-weight: bold;
+    }
+    .navbar-link {
+        cursor: pointer;
+
+    }
+    .navbar-link {
+        text-decoration: none;
+        color: var(--main-background);
+        /* width: 100%;
+        height: 100%; */
+    }
+    .navbar-link:hover{
+        /* color: var();  */
+text-decoration: underline;        
     }
 
     .benchmark-forms {
@@ -482,7 +549,14 @@
 
     /* ------------------------ */
     footer {
-        height: 3em;
+        height: 70px;
+        background-color: black;
+        color: var(--main-background);
+        bottom: 0;
+        width: 100%;
+        /* z-index: 100; */
+        /* position: fixed; */
+        /* padding: 8px; */
     }
 
 
@@ -492,17 +566,30 @@
     .hidden_row {
         display: none;
         background-color: var(--secondary-background) !important;
+        /* background-size: 9px 9px;
+        background-image: repeating-linear-gradient(45deg, var(--secondary-background) 0, var(--secondary-background) 0.9px, #ffffff 0, #ffffff 50%); */
         height: 60px !important;
         text-align: left;
         vertical-align: top;
+        /* border: 1px solid green; */
+        
     }
     .table-info {
         width: 10px !important;
     }
     .active {
         background-color: var(--secondary-background) !important;
+        font-weight: bold;
+        /* background-size: 9px 9px;
+        background-image: repeating-linear-gradient(45deg, var(--secondary-background) 0, var(--secondary-background) 0.9px, #ffffff 0, #ffffff 50%); */
+
     }
     @media only screen and (min-width: 992px) {
+        .navbar {
+            width: 100%;
+            position: fixed;
+            top: 0;
+        }
         .benchmark-video {
             margin-left: auto;
             margin-right: auto;
@@ -517,26 +604,61 @@
             grid-column-gap: 0px;
             grid-row-gap: 0px;
             height: calc(100vh - 35px);
+            /* border: 1px solid var(--main-border); */
         }
         .benchmark {
             overflow: scroll;
+            padding-top: 65px;
         }
+
         .table {
-            margin-top: -35px;
-            top: -10px;
-            z-index: 11;
-        }
-        .table {
+            border-left: 1px solid var(--main-border);
             overflow: scroll;
             height: calc(100% + 39px);
-
+            /* box-shadow: inset 21px 4px 39px -50px rgba(0, 0, 0, 1);
+            -webkit-box-shadow: inset 21px 4px 39px -50px rgba(0, 0, 0, 1); */
+            /* padding-bottom: 35px; */
+            /* height: calc(100%); */
+            height: 100%;
+        }
+  
+        .table-content thead {
+            height: 35px;
+            display: block;
         }
         .table-content tr {
-            box-shadow: inset 21px 4px 39px -50px rgba(0, 0, 0, 1);
+            /* -webkit-box-shadow: inset 21px 4px 39px -50px rgba(0, 0, 0, 1);
+            box-shadow: inset 21px 4px 39px -50px rgba(0, 0, 0, 1); */
         }
         .table-content thead tr th {
             top: 0;
         }
+        .table-content thead tr {
+        height: 35px;
+        top: 0px;
+        /* margin-top: 10px; */
+        position: fixed;
+        /* width: 100%; */
+        }
+        .repair-head {
+            --widthA: calc(100vw/2);
+            /* background-color: red !important; */
+            /* width: 100%; */
+            /* width: 300px; */
+            width: calc( var(--widthA) - 355px);
+
+        }
+        footer {
+        height: 35px;
+        /* background-color: black;
+        color: var(--main-background); */
+        bottom: 0;
+        width: 100%;
+        /* z-index: 100; */
+        position: fixed;
+        /* padding: 8px; */
+    }
+        
     }
 </style>
 <html lang="en">
@@ -561,7 +683,7 @@
     <input id="iteration" value="0" hidden>
     <nav class="navbar">
         <ul class="navbar-list">
-            <li>home page</li>
+            <a class="navbar-link" href="http://192.168.2.222/aft/"><li >home page</li></a>
         </ul>
     </nav>
     <div class="content">
@@ -636,7 +758,7 @@
                     <thead>
                         <tr>
                             <th class="id-head">id</th>
-                            <th class="repai-head">repair</th>
+                            <th class="repair-head">repair</th>
                             <th class="health-head">health</th>
                             <th class="cycle-head">cycle</th>
                             <th class="level-head">level</th>
@@ -651,10 +773,13 @@
     </div>
     </div>
     </div>
+    <footer class="footer">
+        <span>2023</span>
+        <span>made by <a href="https://github.com/MackazElo">mackazelo</a></span>
+        <span><a href="https://github.com/deadbraindev">deadbraindev</a></span>
+    </footer>
 
     <script>
-        // const LOCALHOST = ""
-
         function showHideRow(row) {
             $("#" + row).toggle();
             document.getElementsByClassName(`table-id-${row}`)[0].parentElement.classList.toggle("active")
@@ -812,6 +937,38 @@
 
 
     <script>
+    function copyButton(index) {
+        // console.log( document.getElementById(`row${index}`).childNodes)
+        const row = document.getElementById(`row${index}`).childNodes;
+        const id = row[1].innerHTML;
+        const repair = row[3].lastChild.innerHTML;
+        const health = row[5].innerHTML;
+        const cycle = row[7].innerHTML;
+
+        const hidden_row = document.getElementById(`hidden_row${index}`).childNodes;
+        const start = document.getElementById(`start${index}`).innerHTML;
+        const time = document.getElementById(`time${index}`).innerHTML;
+
+        hidden_row[1].childNodes[5].firstChild.textContent = "copy raport ✅"
+
+
+        // console.log(hidden_row[1].childNodes[5].firstChild.textContent)
+
+
+
+        let copyTextarea = document.createElement("textarea");
+        copyTextarea.style.position = "fixed";
+        copyTextarea.style.opacity = "0";
+        copyTextarea.textContent = `BATTERY BENCHMARK\n repair: ${repair}\n health: ${health}\n cycle: ${cycle}\n${start}\n time: ${time}`;
+    
+ 
+    // console.log(document.getElementsByClassName("health-table")[0].innerHTML)
+    document.body.appendChild(copyTextarea);
+    copyTextarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(copyTextarea);
+}
+
 
         $(document).ready(function () {
 
@@ -836,27 +993,34 @@
                     dataType: "JSON",
                     success: function (data) {
                         var html = '';
-
+                        
                         if (data.data.length >= 0) {
                             for (var count = 0; count < data.data.length; count++) {
                                 const startDate = new Date(data.data[count].Start)
                                 const lastDate = new Date(data.data[count].Last)
                                 const time = dif(startDate, lastDate);
                                 html += `
-                            <tr onclick="showHideRow('hidden_row${count}');">
+                            <tr id="row${count}"onclick="showHideRow('hidden_row${count}');">
                                 <td class="id-table table-id-hidden_row${count}">${data.data[count].id}</td>
                                 <td class="repair-table">${lastDate.getTime() >= getNowTime ? '🟢' : '🔴'} <a href="https://app.asana.com/0/search?q=${data.data[count].Repair}" target="_blank">${data.data[count].Repair}</a></td>
                                 <td class="health-table">${data.data[count].Health}%</td>
                                 <td class="cycle-table">${data.data[count].Cycle}</td>
-                                <td class="level-table">${data.data[count].Level}%</td>                           
+                                <td class="level-table">${data.data[count].Level}%</td>  
+                       
                             </tr>
                             <tr id="hidden_row${count}" class="hidden_row">
-                                <td class="hide-info" colspan=3 class="table-info"> <p>czas trwania:\v <span style="font-weight: bold">${time}</span></p> <p>typ testu:\v \v \v ${data.data[count].Comment} </p></td>
-                                <td class="hide-time" colspan=2 class="table-start"><p> start:\v ${startDate.getHours()}:${startDate.getMinutes()} ${startDate.getDate()}-${startDate.getMonth()} </p> <p>last: \v ${lastDate.getHours()}:${lastDate.getMinutes()} ${lastDate.getDate()}-${lastDate.getMonth()}</p></td>
+
+                                <td class="hide-info" colspan=3 class="table-info"> <p>czas trwania:\v <span id="time${count}" style="font-weight: bold">${time}</span></p> <p>typ testu:\v \v \v ${data.data[count].Comment} </p>
+                                    
+                                    <button class="copyButton" title="copy raport" onclick="copyButton(${count})">copy raport</button>
+    
+                                </td>
+                                <td class="hide-time" colspan=2 class="table-start"><p id="start${count}"> start:\v ${startDate.getHours()}:${startDate.getMinutes()} ${startDate.getDate()}-${startDate.getMonth()} </p> <p>last: \v ${lastDate.getHours()}:${lastDate.getMinutes()} ${lastDate.getDate()}-${lastDate.getMonth()}</p></td>
                             </tr>
                             `;
                             }
                         }
+                        html += '<tr></tr>'
                         $('#sample_data tbody').html(html);
                     }
                 });
