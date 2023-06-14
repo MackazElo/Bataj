@@ -554,9 +554,27 @@ text-decoration: underline;
         color: var(--main-background);
         bottom: 0;
         width: 100%;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        vertical-align: middle;
+        align-items: center;
+        /* text-align: center; */
+        /* align-content: center; */
         /* z-index: 100; */
         /* position: fixed; */
         /* padding: 8px; */
+        padding-left: 15px;
+    }
+    .footer p {
+        padding: 4px;
+    }
+    .footer-link {
+        color: var(--main-background);
+        /* padding: 4px; */
+    }
+    .footer-link:hover {
+        font-weight: bold;
     }
 
 
@@ -774,9 +792,10 @@ text-decoration: underline;
     </div>
     </div>
     <footer class="footer">
-        <span>2023</span>
-        <span>made by <a href="https://github.com/MackazElo">mackazelo</a></span>
-        <span><a href="https://github.com/deadbraindev">deadbraindev</a></span>
+        <p>2023 code by</p>
+        <p><a class="footer-link" href="https://github.com/MackazElo">@mackazelo</a></p>
+        <p>and</p>
+        <p><a class="footer-link" href="https://github.com/deadbraindev">@deadbraindev</a></p>
     </footer>
 
     <script>
@@ -948,18 +967,20 @@ text-decoration: underline;
         const hidden_row = document.getElementById(`hidden_row${index}`).childNodes;
         const start = document.getElementById(`start${index}`).innerHTML;
         const time = document.getElementById(`time${index}`).innerHTML;
+        const type = document.getElementById(`type${index}`).innerHTML;
+
 
         hidden_row[1].childNodes[5].firstChild.textContent = "copy raport ✅"
 
 
-        // console.log(hidden_row[1].childNodes[5].firstChild.textContent)
+        // console.log(hidden_row[1].childNodes)
 
 
 
         let copyTextarea = document.createElement("textarea");
         copyTextarea.style.position = "fixed";
         copyTextarea.style.opacity = "0";
-        copyTextarea.textContent = `BATTERY BENCHMARK\n repair: ${repair}\n health: ${health}\n cycle: ${cycle}\n${start}\n time: ${time}`;
+        copyTextarea.textContent = `BATTERY BENCHMARK\n repair: ${repair}\n time: ${time}\n type: ${type}`;
     
  
     // console.log(document.getElementsByClassName("health-table")[0].innerHTML)
@@ -1010,7 +1031,7 @@ text-decoration: underline;
                             </tr>
                             <tr id="hidden_row${count}" class="hidden_row">
 
-                                <td class="hide-info" colspan=3 class="table-info"> <p>czas trwania:\v <span id="time${count}" style="font-weight: bold">${time}</span></p> <p>typ testu:\v \v \v ${data.data[count].Comment} </p>
+                                <td class="hide-info" colspan=3 class="table-info"> <p>czas trwania:\v <span id="time${count}" style="font-weight: bold">${time}</span></p> <p>typ testu:\v \v \v <span id="type${count}">${data.data[count].Comment}</span> </p>
                                     
                                     <button class="copyButton" title="copy raport" onclick="copyButton(${count})">copy raport</button>
     
