@@ -15,6 +15,7 @@
         --main-blue: #3b18f7;
         --main-green: #006e05;
         --secondary-green: #1d4821;
+        --main-red: #b72b18;
 
     }
 
@@ -204,7 +205,7 @@
         height: calc(100vh - 35px);
     }
 
-    .repair-head {
+    .type-head {
         text-align: left !important;
     }
 
@@ -232,6 +233,23 @@
         z-index: 12;
     }
 
+    .status-icon {
+        /* padding: 4px; */
+        width: 16px;
+        height: 16px;
+        fill: var(--main-red);
+        background-color: transparent;
+    }
+    .status-icon {
+        /* background-color: red; */
+    }
+    .status-icon.active-status {
+        fill: var(--main-green);
+        stroke: 2px;
+        background-color: transparent;
+
+
+    }
     .table-content thead tr {
         height: 35px;
         position: sticky;
@@ -308,12 +326,13 @@
         text-align: center;
     }
 
-    .health-head,
-    .health-table,
-    .cycle-head,
-    .cycle-table,
-    .level-head,
-    .level-table {
+    .type-head {
+
+    }
+    /* .type-head,
+    .type-table, */
+    .time-head,
+    .time-table {
         width: 100px;
         text-align: center;
         
@@ -553,7 +572,7 @@ text-decoration: underline;
         background-color: black;
         color: var(--main-background);
         bottom: 0;
-        width: 100%;
+        /* width: 100%; */
         padding: 0;
         margin: 0;
         display: flex;
@@ -592,6 +611,19 @@ text-decoration: underline;
         /* border: 1px solid green; */
         
     }
+    .type-table{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            display:inline-block;
+            height: 40px;
+            margin-top: 18px;
+
+            /* width: 100px; */
+            /* height: 60px; */
+            width: calc(100vw - 270px);
+        }
     .table-info {
         width: 10px !important;
     }
@@ -603,6 +635,10 @@ text-decoration: underline;
 
     }
     @media only screen and (min-width: 992px) {
+
+        .repair-table {
+            width: 100px;
+        }
         .navbar {
             width: 100%;
             position: fixed;
@@ -659,12 +695,15 @@ text-decoration: underline;
         /* width: 100%; */
         }
         .repair-head {
-            --widthA: calc(100vw/2);
-            /* background-color: red !important; */
-            /* width: 100%; */
-            /* width: 300px; */
-            width: calc( var(--widthA) - 355px);
+            /* --widthA: calc(100vw/2); */
+            width: 100px;
+            /* width: calc( var(--widthA) - 355px); */
 
+        }
+        .type-head,
+        .type-table {
+            --widthA: calc(100vw/2); 
+             width: calc( var(--widthA) - 270px);
         }
         footer {
         height: 35px;
@@ -707,43 +746,43 @@ text-decoration: underline;
     <div class="content">
         <div class="benchmark">
             <div class="benchmark-radios" id="Comment_select">
-                <div class="benchmark-button form-button" tabindex="0" onclick="changeSection('f')">formularz</div>
+                <div class="benchmark-button form-button" tabindex="0" onclick="changeSection('f')">form</div>
                 <div class="benchmark-button youtube-button" tabindex="0" onclick="changeSection('y')">youtube</div>
-                <div class="benchmark-button local-button" tabindex="0" onclick="changeSection('l')">local</div>
+                <div class="benchmark-button local-button" tabindex="0" onclick="changeSection('l')">localplayer</div>
             </div>
 
             <div class="benchmark-forms hidden">
                 <h1>battery benchmark</h1>
 
                 <form method="post" id="form_new">
-                    <span class="benchmark-forms-label">typ testu</span>
+                    <span class="benchmark-forms-label">test type: </span>
 
                     <div class="benchmark-radios" onchange="move_Select()" id="Comment_select">
                         <input type="radio" id="radio-c" name="benchmark-radio" value="kalibracja" checked>
-                        <label tabindex="0" for="radio-c">kalibracja</label>
+                        <label tabindex="0" for="radio-c">calibration</label>
                         <input type="radio" id="radio-s" name="benchmark-radio" value="stabilność">
-                        <label tabindex="0" for="radio-s">stabilność</label>
+                        <label tabindex="0" for="radio-s">stability</label>
                         <input type="radio" id="radio-other" name="benchmark-radio" value="inne">
-                        <label tabindex="0" for="radio-other">inne</label>
+                        <label tabindex="0" for="radio-other">other</label>
                     </div>
                     <input name="Comment" id="Comment_input" class="benchmark-forms-input hidden"
-                        placeholder="wpisz typ testu">
-                    <span class="benchmark-forms-label">numer naprawy</span>
+                        placeholder="enter test type">
+                    <span class="benchmark-forms-label">repair id:</span>
                     <input type="number" class="benchmark-forms-input repair" name="Repair" value=""
-                        placeholder="np. 35423" min="0" max="999999" required>
-                    <span class="benchmark-forms-label">naładowanie baterii</span>
+                        placeholder="e.g. 35423" min="0" max="999999" required>
+                    <span class="benchmark-forms-label">level:</span>
                     <input class="benchmark-forms-input level" name="Level" type="number" min="0" max="100" value="100">
-                    <span class="benchmark-forms-label">kondycja baterii</span>
+                    <span class="benchmark-forms-label">health:</span>
                     <input class="benchmark-forms-input health" name="Health" type="number" min="0" max="100"
                         value="100">
-                    <span class="benchmark-forms-label">który cykl</span>
+                    <span class="benchmark-forms-label">cycle:</span>
                     <input class="benchmark-forms-input cycle" name="Cycle" type="number" min="0" value="0">
 
                     <input name="Start" value="" hidden>
                     <input name="Last" value="" hidden>
                     <input name="action" value="Start" hidden>
                     <input type="submit" id="submit_new" value="new" hidden>
-                    <input type="button" value="uruchom test" id="start_button" onclick="runner()">
+                    <input type="button" value="start test" id="start_button" onclick="runner()">
                 </form>
                 <form method="post" id="form_update" hidden>
                     <input id="current_id" name="id" value="0">
@@ -777,9 +816,11 @@ text-decoration: underline;
                         <tr>
                             <th class="id-head">id</th>
                             <th class="repair-head">repair</th>
-                            <th class="health-head">health</th>
-                            <th class="cycle-head">cycle</th>
-                            <th class="level-head">level</th>
+                            <!-- <th class="health-head">health</th> -->
+                            <!-- <th class="cycle-head">cycle</th> -->
+                            <!-- <th class="level-head">level</th> -->
+                            <th class="type-head">type</th>
+                            <th class="time-head">time</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -883,7 +924,7 @@ text-decoration: underline;
                 but.classList.remove('activeMode')
                 formButton.classList.remove('activeMode')
 
-                but.value = 'Test zakończony, kliknij aby uruchomić ponownie'
+                but.value = 'test ended, click to rerun'
             }
             else if (mode.value == "0") {
                 mode.value = 1
@@ -893,7 +934,7 @@ text-decoration: underline;
                 but.classList.remove('stopMode')
                 formButton.classList.remove('stopMode')
 
-                but.value = 'Test trwa, kliknij aby zakońćzyć'
+                but.value = 'test is on, click to finish'
                 document.getElementById("submit_new").click()
 
                 document.getElementsByClassName('level')[0].disabled = true
@@ -970,7 +1011,7 @@ text-decoration: underline;
         const type = document.getElementById(`type${index}`).innerHTML;
 
 
-        hidden_row[1].childNodes[5].firstChild.textContent = "copy raport ✅"
+        hidden_row[1].childNodes[13].firstChild.textContent = "copy raport ✅"
 
 
         // console.log(hidden_row[1].childNodes)
@@ -1023,23 +1064,35 @@ text-decoration: underline;
                                 html += `
                             <tr id="row${count}"onclick="showHideRow('hidden_row${count}');">
                                 <td class="id-table table-id-hidden_row${count}">${data.data[count].id}</td>
-                                <td class="repair-table">${lastDate.getTime() >= getNowTime ? '🟢' : '🔴'} <a href="https://app.asana.com/0/search?q=${data.data[count].Repair}" target="_blank">${data.data[count].Repair}</a></td>
-                                <td class="health-table">${data.data[count].Health}%</td>
-                                <td class="cycle-table">${data.data[count].Cycle}</td>
-                                <td class="level-table">${data.data[count].Level}%</td>  
+                                <td class="repair-table">${lastDate.getTime() >= getNowTime ? 
+                                    `<svg class="status-icon active-status" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="50" cy="50" r="50" />
+                                    </svg>` : 
+                                    `<svg class="status-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="50" cy="50" r="50" />
+                                    </svg>`
+                                } <a href="https://app.asana.com/0/search?q=${data.data[count].Repair}" target="_blank">${data.data[count].Repair}</a></td>
+                                <td class="type-table" id="type${count}">${data.data[count].Comment}</td>
+                                <td class="time-table" id="time${count}" >${time}</td>
                        
                             </tr>
                             <tr id="hidden_row${count}" class="hidden_row">
 
-                                <td class="hide-info" colspan=3 class="table-info"> <p>czas trwania:\v <span id="time${count}" style="font-weight: bold">${time}</span></p> <p>typ testu:\v \v \v <span id="type${count}">${data.data[count].Comment}</span> </p>
-                                    
+                                <td class="hide-info" colspan=4 class="table-info">
+                                    <p style="font-weight: bold;">type:\v\v\v\v\v${data.data[count].Comment}</p>
+                                    <p>health:\v<span>${data.data[count].Health}%</span></p>
+                                    <p>cycle:\v\v\v<span>${data.data[count].Cycle}</span></p>
+                                    <p>level:\v\v\v<span>${data.data[count].Level}%</span></p>
+                                    <p id="start${count}"> start:\v ${startDate.getHours()}:${startDate.getMinutes()} ${startDate.getDate()}-${startDate.getMonth()+1}</p>
+                                    <p>last: \v ${lastDate.getHours()}:${lastDate.getMinutes()} ${lastDate.getDate()}-${lastDate.getMonth()+1}</p>
                                     <button class="copyButton" title="copy raport" onclick="copyButton(${count})">copy raport</button>
-    
                                 </td>
-                                <td class="hide-time" colspan=2 class="table-start"><p id="start${count}"> start:\v ${startDate.getHours()}:${startDate.getMinutes()} ${startDate.getDate()}-${startDate.getMonth()+1} </p> <p>last: \v ${lastDate.getHours()}:${lastDate.getMinutes()} ${lastDate.getDate()}-${lastDate.getMonth()+1}</p></td>
                             </tr>
                             `;
                             }
+                            // <td class="health-table">${data.data[count].Health}%</td>
+                            //     <td class="cycle-table">${data.data[count].Cycle}</td>
+                            //     <td class="level-table">${data.data[count].Level}%</td>
                         }
                         html += '<tr></tr>'
                         $('#sample_data tbody').html(html);
@@ -1192,4 +1245,6 @@ text-decoration: underline;
                 load_data()
             });
         });
+
+      
     </script>
