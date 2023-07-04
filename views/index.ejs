@@ -497,9 +497,12 @@ text-decoration: underline;
         transition: .1s;
         border-color: var(--main-border);
         color: var(--main-font);
+        background-color: var(--secondary-background);
     }
     .active-section:hover {
         color: var(--main-background);
+        background-color: var(--main-font);
+
     }
     .benchmark-radios input[type="radio"]:checked+label,
     .benchmark-button:active,
@@ -734,7 +737,7 @@ text-decoration: underline;
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <title>BATAJ</title>
+    <title>battery benchmark - applefix tools</title>
 </head>
 
 <body>
@@ -820,8 +823,9 @@ text-decoration: underline;
                             <!-- <th class="health-head">health</th> -->
                             <!-- <th class="cycle-head">cycle</th> -->
                             <!-- <th class="level-head">level</th> -->
-                            <th class="type-head">type</th>
                             <th class="time-head">time</th>
+
+                            <th class="type-head">type</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -1073,8 +1077,8 @@ text-decoration: underline;
                                         <circle cx="50" cy="50" r="50" />
                                     </svg>`
                                 } <a href="https://app.asana.com/0/search?q=${data.data[count].Repair}" target="_blank">${data.data[count].Repair}</a></td>
-                                <td class="type-table" id="type${count}">${data.data[count].Comment}</td>
                                 <td class="time-table" id="time${count}" >${time}</td>
+                                <td class="type-table" id="type${count}">${data.data[count].Comment}</td>
                        
                             </tr>
                             <tr id="hidden_row${count}" class="hidden_row">
